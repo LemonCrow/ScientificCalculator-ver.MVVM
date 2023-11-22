@@ -131,10 +131,10 @@
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="38.333"/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="38.333"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
