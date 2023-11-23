@@ -14,14 +14,20 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         internal string currentExpression = "";
         internal bool _isInt = true;
 
+        NumPad numPad = new NumPad();
+        FormatHelper formatHelper = new FormatHelper();
+
         public ICommand NumberCommand { get; private set; }
         public ICommand DotNumberCommand { get; private set; }
+        public ICommand ChangePMCommand { get; private set; }
+
 
         public ViewModel()
         {
             InputNumber = "0";
             NumberCommand = new RelayCommand<object>(AddNumberWrapper);
             DotNumberCommand = new RelayCommand<object>(AddDotNumberWrapper);
+            ChangePMCommand = new RelayCommand<object>(ChangePMWrapper);
         }
 
         public string InputNumber
@@ -40,7 +46,6 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         {
             if (parameter is string number)
             {
-                NumPad numPad = new NumPad();
                 numPad.AddNumber(number, this);
             }
         }
@@ -49,8 +54,16 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         {
             if (parameter is string number)
             {
-                NumPad numPad = new NumPad();
+               
                 numPad.AddDotNumber(number, this);
+            }
+        }
+
+        private void ChangePMWrapper(object parameter)
+        {
+            if (parameter is string number)
+            {
+                numPad.ChangePM(number, this);
             }
         }
 
@@ -74,10 +87,10 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
     class NumPad
     {
+        FormatHelper formatHelper = new FormatHelper();
         internal void AddNumber(object parameter, ViewModel viewModel)
         {
             string str = Convert.ToString(parameter);
-            FormatHelper formatHelper = new FormatHelper();
 
             if (viewModel.inputNumber == "0")
             {
@@ -93,7 +106,6 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         internal void AddDotNumber(object parameter, ViewModel viewModel)
         {
-            FormatHelper formatHelper = new FormatHelper();
             string str = viewModel.inputNumber + Convert.ToString(parameter);
             System.Diagnostics.Debug.WriteLine(str);
 
@@ -103,5 +115,16 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 viewModel._isInt = false;
             }
         }//소수점
+
+        internal void ChangePM(object parameter, ViewModel viewModel)
+        {
+            string str = viewModel.inputNumber;
+
+            str = !str.Contains("-") && str != "0" ? "-" + str : str.Replace("-", "");
+
+            System.Diagnostics.Debug.WriteLine(str);
+
+            viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
+        }
     }//숫자, 소수점 패드
 }

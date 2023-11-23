@@ -89,12 +89,12 @@ namespace ScientificCalculator_ver.MVVM.Models
                 return formattedString;
             }
 
-        }
+        }//콤마추가
 
         internal string FormatNumberDelCommas(string str)
         {
             return str.Replace(",", "");
-        }
+        }//콤마제거
 
     }
 }
