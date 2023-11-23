@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ScientificCalculator_ver.MVVM.ViewModels;
 
 namespace ScientificCalculator_ver.MVVM
 {
@@ -23,6 +24,7 @@ namespace ScientificCalculator_ver.MVVM
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModel();
         }
     }
 }

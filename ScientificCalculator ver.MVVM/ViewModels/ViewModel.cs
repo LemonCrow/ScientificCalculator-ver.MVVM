@@ -12,6 +12,12 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
     {
         private string inputNumber = "";
         private string currentExpression = "";
+        
+        public ViewModel() 
+        {
+            InputNumber = "0";
+
+        }
 
         public string InputNumber
         {
