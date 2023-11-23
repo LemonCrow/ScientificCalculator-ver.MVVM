@@ -13,8 +13,4 @@
     <PackageReference Include="WakaTime" Version="8.1.11" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
+using ScientificCalculator_ver.MVVM.Models;
 
 namespace ScientificCalculator_ver.MVVM.ViewModels
 {
@@ -15,6 +16,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
     {
         private string inputNumber = "";
         private string currentExpression = "";
+        public bool _isInt = true;
 
         public ICommand NumberCommand { get; private set; }
 
@@ -39,15 +41,20 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         private void AddNumber(object parameter)
         {
+            string str = "";
+            FormatHelper formatHelper = new FormatHelper();
+
             if (parameter is string number)
             {
                 if(inputNumber == "0")
                 {
-                    InputNumber = number;
+                    str = number;
+                    InputNumber = formatHelper.FormatNumberWithCommas(str, this);
                 }
                 else
                 {
-                    InputNumber += number;
+                    str += inputNumber + number;
+                    InputNumber = formatHelper.FormatNumberWithCommas(str, this);
                 }
             }
         }//숫자패드
