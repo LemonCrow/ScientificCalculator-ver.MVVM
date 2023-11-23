@@ -53,9 +53,9 @@ namespace ScientificCalculator_ver.MVVM.Models
             else
             {
                 string[] arr = numberString.Split('.');
-                numberString = arr[0];
+                
 
-                int length = numberString.Length;
+                int length = arr[0].Length;
                 int commaCount = (length - 1) / 3;
                 StringBuilder formatted = new StringBuilder(length + commaCount);
 

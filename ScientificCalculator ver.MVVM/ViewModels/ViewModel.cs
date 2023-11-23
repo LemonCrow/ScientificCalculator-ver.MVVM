@@ -107,12 +107,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         internal void AddDotNumber(object parameter, ViewModel viewModel)
         {
             string str = viewModel.inputNumber + Convert.ToString(parameter);
-            System.Diagnostics.Debug.WriteLine(str);
 
             if (viewModel.inputNumber != "0" && viewModel._isInt == true)
             {
-                viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
                 viewModel._isInt = false;
+                viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
             }
         }//소수점
 
@@ -125,6 +124,6 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             System.Diagnostics.Debug.WriteLine(str);
 
             viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
-        }
+        }// +/-
     }//숫자, 소수점 패드
 }
