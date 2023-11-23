@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using ScientificCalculator_ver.MVVM.ViewModels;
 
 namespace ScientificCalculator_ver.MVVM.Models
@@ -17,7 +12,7 @@ namespace ScientificCalculator_ver.MVVM.Models
 
             if (numberString.StartsWith("-"))
             {
-                numberString =  numberString.Replace("-", "");
+                numberString = numberString.Replace("-", "");
                 isMin = true;
             }
 
@@ -58,7 +53,7 @@ namespace ScientificCalculator_ver.MVVM.Models
             else
             {
                 string[] arr = numberString.Split('.');
-                numberString = arr[1];
+                numberString = arr[0];
 
                 int length = numberString.Length;
                 int commaCount = (length - 1) / 3;
@@ -84,7 +79,7 @@ namespace ScientificCalculator_ver.MVVM.Models
 
                 string formattedString = formatted.ToString();
 
-                formattedString = formattedString + "." + arr[0];
+                formattedString = formattedString + "." + arr[1];
 
                 if (isMin)
                 {
