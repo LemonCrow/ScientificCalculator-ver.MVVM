@@ -96,5 +96,24 @@ namespace ScientificCalculator_ver.MVVM.Models
             return str.Replace(",", "");
         }//콤마제거
 
+        internal bool CountNumber(string str)
+        {
+            bool isEndDot = false;
+            
+            str = FormatNumberDelCommas(str);
+            str = str.Replace(".", "");
+            
+
+            if(str.Length >= 32)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
+        }
+
     }
 }

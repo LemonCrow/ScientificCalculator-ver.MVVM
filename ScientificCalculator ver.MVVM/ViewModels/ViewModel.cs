@@ -91,15 +91,17 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         internal void AddNumber(object parameter, ViewModel viewModel)
         {
             string str = Convert.ToString(parameter);
-
-            if (viewModel.inputNumber == "0")
+            if (formatHelper.CountNumber(viewModel.inputNumber))
             {
-                viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
-            }
-            else
-            {
-                str = viewModel.inputNumber + str;
-                viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
+                if (viewModel.inputNumber == "0")
+                {
+                    viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
+                }
+                else
+                {
+                    str = viewModel.inputNumber + str;
+                    viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
+                }
             }
 
         }//숫자패드
