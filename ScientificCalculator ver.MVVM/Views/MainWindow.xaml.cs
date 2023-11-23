@@ -13,5 +13,6 @@ namespace ScientificCalculator_ver.MVVM
             InitializeComponent();
             DataContext = new ViewModel();
         }
+
     }
 }

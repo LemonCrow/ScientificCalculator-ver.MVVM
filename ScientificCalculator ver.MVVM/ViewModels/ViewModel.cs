@@ -20,7 +20,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public ICommand NumberCommand { get; private set; }
         public ICommand DotNumberCommand { get; private set; }
         public ICommand ChangePMCommand { get; private set; }
-
+        public ICommand CalculationCommand { get; private set; }
 
         public ViewModel()
         {
@@ -28,6 +28,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             NumberCommand = new RelayCommand<object>(AddNumberWrapper);
             DotNumberCommand = new RelayCommand<object>(AddDotNumberWrapper);
             ChangePMCommand = new RelayCommand<object>(ChangePMWrapper);
+            CalculationCommand = new RelayCommand<object>(CalculationWrapper);
         }
 
         public string InputNumber
@@ -67,6 +68,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             }
         }
 
+        private void CalculationWrapper(object parameter)
+        {
+            numPad.ExpressionUp(parameter, this);
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -88,6 +94,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
     class NumPad
     {
         FormatHelper formatHelper = new FormatHelper();
+        Calculration calculration = new Calculration();
         internal void AddNumber(object parameter, ViewModel viewModel)
         {
             string str = Convert.ToString(parameter);
@@ -127,5 +134,16 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
             viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
         }// +/-
+
+        internal void ExpressionUp(object parameter, ViewModel viewModel)
+        {
+            string str = viewModel.InputNumber;
+            
+            viewModel.currentExpression += str;
+            viewModel.InputNumber = Convert.ToString(calculration.MathResult(viewModel.currentExpression));
+            viewModel.CurrentExpression += " " + Convert.ToString(parameter) + " ";
+            viewModel._isInt = true;
+
+        }//연산
     }//숫자, 소수점 패드
 }
