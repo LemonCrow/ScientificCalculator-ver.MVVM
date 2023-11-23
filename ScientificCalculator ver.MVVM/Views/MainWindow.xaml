@@ -224,26 +224,26 @@
         <Button Grid.Row="7" Grid.Column="4" Style="{StaticResource NomalButtonStyle}">÷</Button>
 
         <Button x:Name="square" Grid.Row="8" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">x^y</Button>
-        <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource NomalButtonStyle}">7</Button>
-        <Button Grid.Row="8" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">8</Button>
-        <Button Grid.Row="8" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">9</Button>
+        <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="7">7</Button>
+        <Button Grid.Row="8" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="8">8</Button>
+        <Button Grid.Row="8" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="9">9</Button>
         <Button Grid.Row="8" Grid.Column="4" Style="{StaticResource NomalButtonStyle}">×</Button>
 
         <Button x:Name="square10" Grid.Row="9" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">10^x</Button>
-        <Button Grid.Row="9" Grid.Column="1" Style="{StaticResource NomalButtonStyle}">4</Button>
-        <Button Grid.Row="9" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">5</Button>
-        <Button Grid.Row="9" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">6</Button>
+        <Button Grid.Row="9" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="4">4</Button>
+        <Button Grid.Row="9" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="5">5</Button>
+        <Button Grid.Row="9" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="6">6</Button>
         <Button Grid.Row="9" Grid.Column="4" Style="{StaticResource NomalButtonStyle}">-</Button>
 
         <Button x:Name="log" Grid.Row="10" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">log</Button>
-        <Button Grid.Row="10" Grid.Column="1" Style="{StaticResource NomalButtonStyle}">1</Button>
-        <Button Grid.Row="10" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">2</Button>
-        <Button Grid.Row="10" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">3</Button>
+        <Button Grid.Row="10" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="1">1</Button>
+        <Button Grid.Row="10" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="2">2 </Button>
+        <Button Grid.Row="10" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="3">3</Button>
         <Button Grid.Row="10" Grid.Column="4" Style="{StaticResource NomalButtonStyle}">+</Button>
 
         <Button x:Name="nSquare" Grid.Row="11" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">ln</Button>
         <Button Grid.Row="11" Grid.Column="1" Style="{StaticResource NomalButtonStyle}">+/-</Button>
-        <Button Grid.Row="11" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">0</Button>
+        <Button Grid.Row="11" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="0">0</Button>
         <Button Grid.Row="11" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">.</Button>
         <Button Grid.Row="11" Grid.Column="4" Style="{StaticResource SpecialButtonStyle}">=</Button>
     </Grid>

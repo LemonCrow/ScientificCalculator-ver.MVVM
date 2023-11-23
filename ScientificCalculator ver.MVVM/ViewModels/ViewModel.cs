@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace ScientificCalculator_ver.MVVM.ViewModels
 {
@@ -12,10 +15,13 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
     {
         private string inputNumber = "";
         private string currentExpression = "";
-        
+
+        public ICommand NumberCommand { get; private set; }
+
         public ViewModel() 
         {
             InputNumber = "0";
+            NumberCommand = new RelayCommand<object>(AddNumber);
 
         }
 
@@ -30,6 +36,21 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             get { return currentExpression; }
             set { SetProperty(ref currentExpression, value); }
         }
+
+        private void AddNumber(object parameter)
+        {
+            if (parameter is string number)
+            {
+                if(inputNumber == "0")
+                {
+                    InputNumber = number;
+                }
+                else
+                {
+                    InputNumber += number;
+                }
+            }
+        }//숫자패드
 
         public event PropertyChangedEventHandler PropertyChanged;
 
