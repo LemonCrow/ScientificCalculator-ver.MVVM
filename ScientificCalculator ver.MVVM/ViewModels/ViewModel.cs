@@ -178,6 +178,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             viewModel._isInt = true;
 
         }//연산
+
+        internal void BraketUp(object parameter, ViewModel viewModel)
+        {
+            string braket = Convert.ToString(parameter);
+        }
     }//숫자, 소수점 패드.
 
     class TextSIze
