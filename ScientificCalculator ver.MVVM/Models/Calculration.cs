@@ -14,6 +14,7 @@ namespace ScientificCalculator_ver.MVVM.Models
 
         internal string MathResult(string str)
         {
+            System.Diagnostics.Debug.WriteLine(SignConverter(str));
             Expression expr = new Expression(SignConverter(str));
             object result = expr.Evaluate();
 
@@ -23,8 +24,8 @@ namespace ScientificCalculator_ver.MVVM.Models
 
         private string SignConverter(string str)
         {
-            str.Replace("÷", "/");
-            str.Replace("X", "*");
+            str = str.Replace("÷", "/");
+            str = str.Replace("×", "*");
 
             return str;
         }

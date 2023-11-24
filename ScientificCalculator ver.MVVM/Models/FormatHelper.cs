@@ -5,7 +5,7 @@ namespace ScientificCalculator_ver.MVVM.Models
 {
     internal class FormatHelper
     {
-        internal string FormatNumberWithCommas(string str, ViewModel viewmodel)
+        internal string FormatNumberWithCommas(string str)
         {
             string numberString = FormatNumberDelCommas(str);
             bool isMin = false;
@@ -16,7 +16,7 @@ namespace ScientificCalculator_ver.MVVM.Models
                 isMin = true;
             }
 
-            if (viewmodel._isInt)
+            if (!str.Contains("."))
             {
                 int length = numberString.Length;
                 int commaCount = (length - 1) / 3;

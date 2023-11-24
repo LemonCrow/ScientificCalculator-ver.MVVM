@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.TextFormatting;
 using CommunityToolkit.Mvvm.Input;
 using ScientificCalculator_ver.MVVM.Models;
 
@@ -13,6 +15,10 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         internal string inputNumber = "";
         internal string currentExpression = "";
         internal bool _isInt = true;
+
+        private double _inputNumberFontSize;
+        private double _currentExpressionFontSize;
+        private readonly TextSIze _textSize = new TextSIze();
 
         NumPad numPad = new NumPad();
         FormatHelper formatHelper = new FormatHelper();
@@ -29,6 +35,25 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             DotNumberCommand = new RelayCommand<object>(AddDotNumberWrapper);
             ChangePMCommand = new RelayCommand<object>(ChangePMWrapper);
             CalculationCommand = new RelayCommand<object>(CalculationWrapper);
+            UpdateFontSizes();
+        }
+
+        public double InputNumberFontSize
+        {
+            get => _inputNumberFontSize;
+            set => SetProperty(ref _inputNumberFontSize, value);
+        }
+
+        public double CurrentExpressionFontSize
+        {
+            get => _currentExpressionFontSize;
+            set => SetProperty(ref _currentExpressionFontSize, value);
+        }
+
+        internal void UpdateFontSizes()
+        {
+            InputNumberFontSize = TextSIze.CalculateFontSizeForExpression(this);
+            CurrentExpressionFontSize = TextSIze.CalculateFontSize(this);
         }
 
         public string InputNumber
@@ -102,12 +127,14 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             {
                 if (viewModel.inputNumber == "0")
                 {
-                    viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
+                    viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
+                    viewModel.UpdateFontSizes();
                 }
                 else
                 {
                     str = viewModel.inputNumber + str;
-                    viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
+                    viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
+                    viewModel.UpdateFontSizes();
                 }
             }
 
@@ -120,7 +147,8 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             if (viewModel.inputNumber != "0" && viewModel._isInt == true)
             {
                 viewModel._isInt = false;
-                viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
+                viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
+                viewModel.UpdateFontSizes();
             }
         }//소수점
 
@@ -132,18 +160,45 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
             System.Diagnostics.Debug.WriteLine(str);
 
-            viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str, viewModel);
+            viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
+            viewModel.UpdateFontSizes();
         }// +/-
 
         internal void ExpressionUp(object parameter, ViewModel viewModel)
         {
             string str = viewModel.InputNumber;
-            
+            if (str.EndsWith("."))
+            {
+                str = str.Replace(".", "");
+            }
             viewModel.currentExpression += str;
-            viewModel.InputNumber = Convert.ToString(calculration.MathResult(viewModel.currentExpression));
+            viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
             viewModel.CurrentExpression += " " + Convert.ToString(parameter) + " ";
+            viewModel.UpdateFontSizes();
             viewModel._isInt = true;
 
         }//연산
-    }//숫자, 소수점 패드
+    }//숫자, 소수점 패드.
+
+    class TextSIze
+    {
+        public static double CalculateFontSizeForExpression(ViewModel viewModel)
+        {
+            if (viewModel.inputNumber.Length < 20) return 30;
+            if (viewModel.inputNumber.Length < 30) return 20;
+            if (viewModel.inputNumber.Length < 40) return 15;
+
+            return 14;
+        } //숫자 텍스트 사이즈 길이 비례 조절
+
+        public static double CalculateFontSize(ViewModel viewModel)
+        {
+
+            if (viewModel.currentExpression.Length < 10) return 20;
+            if (viewModel.currentExpression.Length < 20) return 15;
+            if (viewModel.currentExpression.Length < 30) return 10;
+
+            return 12;
+        } // 텍스트 사이즈 자동조절
+    }
 }
