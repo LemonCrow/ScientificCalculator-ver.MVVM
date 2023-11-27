@@ -40,6 +40,7 @@ namespace ScientificCalculator_ver.MVVM.Models
         {
             str = str.Replace("÷", "/");
             str = str.Replace("×", "*");
+            str = str.Replace("mod", "%");
 
             return str;
         }

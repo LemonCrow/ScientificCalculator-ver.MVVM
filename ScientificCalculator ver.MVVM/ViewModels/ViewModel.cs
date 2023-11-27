@@ -508,6 +508,30 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             {
                 viewModel.CurrentExpression += Convert.ToString(parameter);
             }
+            else if (Convert.ToString(viewModel.currentExpression).Trim().EndsWith("d"))
+            {
+                if(viewModel.inputNumber != "0" && viewModel.inputNumber != viewModel.resultNumber)
+                {
+                    string str = viewModel.InputNumber;
+                    if (str.EndsWith("."))
+                    {
+                        str = str.Replace(".", "");
+                    }
+                    viewModel.currentExpression += str;
+                    if (!viewModel._isBreaket)
+                    {
+                        viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
+                    }
+                    viewModel.resultNumber = viewModel.inputNumber;
+                    viewModel.CurrentExpression += " " + Convert.ToString(parameter) + " ";
+                    viewModel.UpdateFontSizes();
+                    viewModel._isInt = true;
+                }
+                else
+                {
+                    viewModel.CurrentExpression = viewModel.currentExpression.Replace("mod", Convert.ToString(parameter));
+                }
+            }
             else
             {
                 string str = viewModel.InputNumber;
@@ -616,14 +640,31 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         internal void SpecialNumber(object parameter ,ViewModel viewModel)
         {
+            bool isOperator = false;
+
             if(Convert.ToString(parameter) == "Fact")
+            {
                 viewModel.CurrentExpression += " Fact(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
             else if(Convert.ToString(parameter) == "abs")
+            {
                 viewModel.CurrentExpression += " abs(" + viewModel.inputNumber + ") ";
-            viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
-            viewModel.resultNumber = viewModel.inputNumber;
-            viewModel.UpdateFontSizes();
-            viewModel._isInt = true;
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "mod" && !Convert.ToString(viewModel.currentExpression).Trim().EndsWith("d"))
+            {
+                viewModel.CurrentExpression += viewModel.inputNumber + " mod ";
+                viewModel.resultNumber = viewModel.inputNumber;
+            }
+            
+            if(isOperator)
+            {
+                viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
+                viewModel.resultNumber = viewModel.inputNumber;
+                viewModel.UpdateFontSizes();
+                viewModel._isInt = true;
+            }
         }
 
     }
