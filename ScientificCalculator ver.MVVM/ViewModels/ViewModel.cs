@@ -285,7 +285,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public ICommand AngleChangeCommand { get; private set; }
         public ICommand DelCommand { get; private set; }
         public ICommand PiCommand { get; private set; }
-        public ICommand FacCommand { get; private set; }
+        public ICommand SpecialNumberCommand { get; private set; }
         public ICommand ToggleTrigonometryPopupCommand { get; }
         public ICommand ToggleFunctionPopupCommand { get; }
 
@@ -303,7 +303,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             ToggleFunctionPopupCommand = new RelayCommand(ToggleFunctionPopup);
             DelCommand = new RelayCommand(DelNumberWrapper);
             PiCommand = new RelayCommand(PiNumberWrapper);
-            FacCommand = new RelayCommand(FacNumberWrapper);
+            SpecialNumberCommand = new RelayCommand<object>(SpecialNumberWrapper);
             UpdateFontSizes();
         }
 
@@ -394,9 +394,9 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             operatorButton.PiNumber(this);
         }
 
-        private void FacNumberWrapper()
+        private void SpecialNumberWrapper(object parameter)
         {
-            operatorButton.FacNumber(this);
+            operatorButton.SpecialNumber(parameter ,this);
         }
 
         private void ChangeAngleContent()
@@ -581,14 +581,18 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             viewModel.InputNumber = calculration.MathResult("Pi");
         }
 
-        internal void FacNumber(ViewModel viewModel)
+        internal void SpecialNumber(object parameter ,ViewModel viewModel)
         {
-            viewModel.CurrentExpression += " Fact(" + viewModel.inputNumber + ") ";
+            if(Convert.ToString(parameter) == "Fact")
+                viewModel.CurrentExpression += " Fact(" + viewModel.inputNumber + ") ";
+            else if(Convert.ToString(parameter) == "abs")
+                viewModel.CurrentExpression += " abs(" + viewModel.inputNumber + ") ";
             viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
             viewModel.resultNumber = viewModel.inputNumber;
             viewModel.UpdateFontSizes();
             viewModel._isInt = true;
         }
+
     }
 }
 

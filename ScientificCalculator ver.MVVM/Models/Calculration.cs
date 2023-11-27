@@ -23,6 +23,10 @@ namespace ScientificCalculator_ver.MVVM.Models
                     int value = Convert.ToInt32(args.Parameters[0].Evaluate());
                     args.Result = Factorial(value);
                 }
+                if (name == "abs")
+                {
+                    args.Result = Math.Abs(Convert.ToDouble(args.Parameters[0].Evaluate()));
+                }
             };
             System.Diagnostics.Debug.WriteLine(expr);
             expr.Parameters["Pi"] = Math.PI;
