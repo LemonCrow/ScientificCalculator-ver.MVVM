@@ -652,10 +652,15 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 viewModel.CurrentExpression += " abs(" + viewModel.inputNumber + ") ";
                 isOperator = true;
             }
-            else if (Convert.ToString(parameter) == "mod" && !Convert.ToString(viewModel.currentExpression).Trim().EndsWith("d"))
+            else if(Convert.ToString(parameter) == "mod" && !Convert.ToString(viewModel.currentExpression).Trim().EndsWith("d"))
             {
                 viewModel.CurrentExpression += viewModel.inputNumber + " mod ";
                 viewModel.resultNumber = viewModel.inputNumber;
+            }
+            else if(Convert.ToString(parameter) == "x^2")
+            {
+                viewModel.CurrentExpression += " sqr(" + viewModel.inputNumber + ") ";
+                isOperator = true;
             }
             
             if(isOperator)
@@ -664,6 +669,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 viewModel.resultNumber = viewModel.inputNumber;
                 viewModel.UpdateFontSizes();
                 viewModel._isInt = true;
+                isOperator = false;
             }
         }
 

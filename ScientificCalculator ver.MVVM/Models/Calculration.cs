@@ -27,6 +27,12 @@ namespace ScientificCalculator_ver.MVVM.Models
                 {
                     args.Result = Math.Abs(Convert.ToDouble(args.Parameters[0].Evaluate()));
                 }
+                if (name == "sqr" && args.Parameters.Length == 1)
+                {
+                    var parameter = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Pow(parameter, 2);
+                }
+
             };
             System.Diagnostics.Debug.WriteLine(expr);
             expr.Parameters["Pi"] = Math.PI;
@@ -41,6 +47,7 @@ namespace ScientificCalculator_ver.MVVM.Models
             str = str.Replace("÷", "/");
             str = str.Replace("×", "*");
             str = str.Replace("mod", "%");
+            
 
             return str;
         }
