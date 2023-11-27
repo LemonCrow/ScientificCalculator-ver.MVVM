@@ -115,6 +115,14 @@ namespace ScientificCalculator_ver.MVVM.Models
             
         }//자릿수제한
 
+        internal string ButtonCeUpdate(string inputNumber)
+        {
+            if (inputNumber != "0")
+                return "CE";
+            else
+                return "C";
+        }//C버튼 설정
+
 
     }
 }

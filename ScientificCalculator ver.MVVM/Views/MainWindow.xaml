@@ -208,7 +208,7 @@
         <ToggleButton Grid.Row="5" Grid.Column="0" Style="{StaticResource lightToggleButtonStyle}" IsChecked="{Binding IsToggled}" >2nd</ToggleButton>
         <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding PiCommand}">π</Button>
         <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">e</Button>
-        <Button Grid.Row="5" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Height="39" Margin="2,2,2,0" VerticalAlignment="Top">Ⅽ</Button>
+        <Button Grid.Row="5" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Height="39" Margin="2,2,2,0" VerticalAlignment="Top" Content="{Binding ButtonCE}" Command="{Binding CECommand}" />
         <Button Grid.Row="5" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding DelCommand}">⌫</Button>
 
         <Button Grid.Row="6" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSqr}"/>

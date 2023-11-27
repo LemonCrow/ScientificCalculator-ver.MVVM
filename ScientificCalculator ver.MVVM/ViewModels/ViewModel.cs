@@ -25,6 +25,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         private bool _isFunctuonPopupOpen;
         private bool _is2nd = false;
         private bool _isHyp = false;
+        
 
         private string _buttonSqr = "x²";
         private string _buttonRoot = "2√x";
@@ -46,6 +47,8 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         private string _buttonRand = "rand";
         private string _buttonDMS = "->dms";
         private string _buttonDEG = "->deg";
+
+        private string _buttonCE = "C";
 
 
         private string _angleContent;
@@ -218,6 +221,12 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             set => SetProperty(ref _buttonDEG, value);
         }
 
+        public string ButtonCE
+        {
+            get => _buttonCE;
+            set => SetProperty(ref _buttonCE, value);
+        }
+
         private void UpdateButtonContents()
         {
             if (_isToggled)
@@ -288,6 +297,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public ICommand SpecialNumberCommand { get; private set; }
         public ICommand ToggleTrigonometryPopupCommand { get; }
         public ICommand ToggleFunctionPopupCommand { get; }
+        public ICommand CECommand { get; }
 
         public ViewModel()
         {
@@ -304,6 +314,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             DelCommand = new RelayCommand(DelNumberWrapper);
             PiCommand = new RelayCommand(PiNumberWrapper);
             SpecialNumberCommand = new RelayCommand<object>(SpecialNumberWrapper);
+            CECommand = new RelayCommand(CEWrapper);
             UpdateFontSizes();
         }
 
@@ -340,7 +351,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public string InputNumber
         {
             get { return inputNumber; }
-            set { SetProperty(ref inputNumber, value); }
+            set 
+            {
+                SetProperty(ref inputNumber, value);
+                ButtonCE = formatHelper.ButtonCeUpdate(inputNumber);
+            }
         }
 
         public string CurrentExpression
@@ -397,6 +412,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         private void SpecialNumberWrapper(object parameter)
         {
             operatorButton.SpecialNumber(parameter ,this);
+        }
+
+        private void CEWrapper()
+        {
+            numPad.ButtonCE(_buttonCE, this);
         }
 
         private void ChangeAngleContent()
@@ -507,6 +527,19 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             }
 
         }//연산
+
+        internal void ButtonCE(string buttonText ,ViewModel viewModel)
+        {
+            if(buttonText == "C")
+            {
+                viewModel.CurrentExpression = "";
+            }
+            viewModel.InputNumber = "0";
+            viewModel.UpdateFontSizes();
+            viewModel._isInt = true;
+        }
+
+
 
         
 
