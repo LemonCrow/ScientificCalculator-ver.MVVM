@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -284,6 +285,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public ICommand AngleChangeCommand { get; private set; }
         public ICommand DelCommand { get; private set; }
         public ICommand PiCommand { get; private set; }
+        public ICommand FacCommand { get; private set; }
         public ICommand ToggleTrigonometryPopupCommand { get; }
         public ICommand ToggleFunctionPopupCommand { get; }
 
@@ -301,6 +303,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             ToggleFunctionPopupCommand = new RelayCommand(ToggleFunctionPopup);
             DelCommand = new RelayCommand(DelNumberWrapper);
             PiCommand = new RelayCommand(PiNumberWrapper);
+            FacCommand = new RelayCommand(FacNumberWrapper);
             UpdateFontSizes();
         }
 
@@ -389,6 +392,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         private void PiNumberWrapper()
         {
             operatorButton.PiNumber(this);
+        }
+
+        private void FacNumberWrapper()
+        {
+            operatorButton.FacNumber(this);
         }
 
         private void ChangeAngleContent()
@@ -570,7 +578,16 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         internal void PiNumber(ViewModel viewModel)
         {
-            viewModel.InputNumber = calculration.PiNumber();
+            viewModel.InputNumber = calculration.MathResult("Pi");
+        }
+
+        internal void FacNumber(ViewModel viewModel)
+        {
+            viewModel.CurrentExpression += " Fact(" + viewModel.inputNumber + ") ";
+            viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
+            viewModel.resultNumber = viewModel.inputNumber;
+            viewModel.UpdateFontSizes();
+            viewModel._isInt = true;
         }
     }
 }

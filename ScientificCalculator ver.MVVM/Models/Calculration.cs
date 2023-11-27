@@ -16,7 +16,16 @@ namespace ScientificCalculator_ver.MVVM.Models
         {
             System.Diagnostics.Debug.WriteLine(SignConverter(str));
             Expression expr = new Expression(SignConverter(str));
+            expr.EvaluateFunction += (name, args) =>
+            {
+                if (name == "Fact")
+                {
+                    int value = Convert.ToInt32(args.Parameters[0].Evaluate());
+                    args.Result = Factorial(value);
+                }
+            };
             System.Diagnostics.Debug.WriteLine(expr);
+            expr.Parameters["Pi"] = Math.PI;
             object result = expr.Evaluate();
 
             return Convert.ToString(result);
@@ -31,6 +40,11 @@ namespace ScientificCalculator_ver.MVVM.Models
             return str;
         }
 
+        private int Factorial(int n)
+        {
+            return n <= 1 ? 1 : n * Factorial(n - 1);
+        }//팩토리얼
+
         internal string DelNumber(string inputNumber)
         {
             if(inputNumber == "0" || inputNumber.Length == 1)
@@ -43,12 +57,6 @@ namespace ScientificCalculator_ver.MVVM.Models
                 return inputNumber;
             }
             //최종 수정값
-        }
-
-        internal string PiNumber()
-        {
-            string inputNumber = Convert.ToString(Math.PI);
-            return inputNumber;
         }
 
     }

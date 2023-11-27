@@ -220,7 +220,7 @@
         <Button Grid.Row="7" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonRoot}" /> 
         <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding BasketCommand}" CommandParameter="(">(</Button>
         <Button Grid.Row="7" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding BasketCommand}" CommandParameter=")">)</Button>
-        <Button Grid.Row="7" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">n!</Button>
+        <Button Grid.Row="7" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding FacCommand}">n!</Button>
         <Button Grid.Row="7" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding CalculationCommand}" CommandParameter="÷">÷</Button>
 
         <Button Grid.Row="8" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSquare}" />
