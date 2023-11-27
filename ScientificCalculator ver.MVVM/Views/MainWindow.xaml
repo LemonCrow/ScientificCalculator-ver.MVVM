@@ -125,7 +125,7 @@
         <TextBox IsReadOnly="True" Foreground="Gray" Background="#f3f3f3" BorderBrush="Transparent" Grid.Column="0" Margin="5,0,5,0" Height="40" VerticalAlignment="Center" TextAlignment="Right" FontWeight="Bold"  Grid.ColumnSpan="5" Text="{Binding CurrentExpression}" FontSize="{Binding CurrentExpressionFontSize}"/>
         <TextBox IsReadOnly="True"  BorderBrush="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Height="80" VerticalContentAlignment ="Center" TextAlignment="Right" FontWeight="Bold"  Background="#f3f3f3" Text="{Binding InputNumber}" FontSize="{Binding InputNumberFontSize}"/>
 
-        <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource InvisibleButtonStyle}">DEG</Button>
+        <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource InvisibleButtonStyle}" Command="{Binding AngleChangeCommand}" Content="{Binding AngleChange}"/>
         <ToggleButton Grid.Row="2" Grid.Column="1" Style="{StaticResource HighlightToggleButtonStyle}">F-E</ToggleButton>
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
@@ -146,9 +146,9 @@
             <Button Grid.Row="1" Grid.Column="5" Style="{StaticResource InvisibleButtonStyle}" IsEnabled="False">M∨</Button>
         </Grid>
 
-        <Button x:Name="openTriPopupButton"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource InvisibleButtonStyle}">⊿ 삼각법 ∨</Button >
+        <Button x:Name="openPopupButton" Command="{Binding ToggleTrigonometryPopupCommand}"  Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource InvisibleButtonStyle}">⊿ 삼각법 ∨</Button >
 
-        <Popup x:Name="Trigonometry"  PlacementTarget="{Binding ElementName=openTriPopupButton}" Placement="Bottom"  StaysOpen="False">
+        <Popup IsOpen="{Binding IsTrigonometryPopupOpen}" PlacementTarget="{Binding ElementName=openPopupButton}"  Placement="Bottom"  StaysOpen="False">
             <Border Background="#e5e5e5" Width="250" Height="100">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -163,23 +163,23 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ToggleButton x:Name="Trigonometry2nd" Grid.Row="0" Grid.Column="0" Content="2nd" Style="{StaticResource lightToggleButtonStyle}"/>
-                    <Button x:Name="sin" Grid.Row="0" Grid.Column="1" Content="sin" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="cos" Grid.Row="0" Grid.Column="2" Content="cos" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="tan" Grid.Row="0" Grid.Column="3" Content="tan" Style="{StaticResource NomalButtonStyle}"/>
+                    <ToggleButton IsChecked="{Binding Is2nd}" x:Name="Trigonometry2nd" Grid.Row="0" Grid.Column="0" Content="2nd" Style="{StaticResource lightToggleButtonStyle}"/>
+                    <Button x:Name="sin" Grid.Row="0" Grid.Column="1" Content="{Binding ButtonSin}" Style="{StaticResource NomalButtonStyle}"/>
+                    <Button x:Name="cos" Grid.Row="0" Grid.Column="2" Content="{Binding ButtonCos}" Style="{StaticResource NomalButtonStyle}"/>
+                    <Button x:Name="tan" Grid.Row="0" Grid.Column="3" Content="{Binding ButtonTan}" Style="{StaticResource NomalButtonStyle}"/>
 
-                    <ToggleButton x:Name="TrigonometryHyp" Grid.Row="1" Grid.Column="0" Content="hyp" Style="{StaticResource lightToggleButtonStyle}"/>
-                    <Button x:Name="sec" Grid.Row="1" Grid.Column="1" Content="sec" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="csc" Grid.Row="1" Grid.Column="2" Content="csc" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="cot" Grid.Row="1" Grid.Column="3" Content="cot" Style="{StaticResource NomalButtonStyle}"/>
+                    <ToggleButton IsChecked="{Binding IsHyp}" x:Name="TrigonometryHyp" Grid.Row="1" Grid.Column="0" Content="hyp" Style="{StaticResource lightToggleButtonStyle}"/>
+                    <Button x:Name="sec" Grid.Row="1" Grid.Column="1" Content="{Binding ButtonSec}" Style="{StaticResource NomalButtonStyle}"/>
+                    <Button x:Name="csc" Grid.Row="1" Grid.Column="2" Content="{Binding ButtonCsc}" Style="{StaticResource NomalButtonStyle}"/>
+                    <Button x:Name="cot" Grid.Row="1" Grid.Column="3" Content="{Binding ButtonCot}" Style="{StaticResource NomalButtonStyle}"/>
 
                 </Grid>
             </Border>
         </Popup>
 
-        <Button x:Name="openFunPopupButton" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource InvisibleButtonStyle}">∫ 함수 ∨</Button>
+        <Button x:Name="openFunPopupButton" Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource InvisibleButtonStyle}" Command="{Binding ToggleFunctionPopupCommand}">∫ 함수 ∨</Button>
 
-        <Popup x:Name="function"  PlacementTarget="{Binding ElementName=openFunPopupButton}" Placement="Bottom"  StaysOpen="False">
+        <Popup IsOpen="{Binding IsFunctionPopupOpen}" PlacementTarget="{Binding ElementName=openFunPopupButton}" Placement="Bottom"  StaysOpen="False">
             <Border Background="#e5e5e5" Width="200" Height="80">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -205,43 +205,43 @@
             </Border>
         </Popup>
 
-        <ToggleButton x:Name="NumPad2nd" Grid.Row="5" Grid.Column="0" Style="{StaticResource lightToggleButtonStyle}">2nd</ToggleButton>
-        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource NomalButtonStyle}">π</Button>
+        <ToggleButton Grid.Row="5" Grid.Column="0" Style="{StaticResource lightToggleButtonStyle}" IsChecked="{Binding IsToggled}" >2nd</ToggleButton>
+        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding PiCommand}">π</Button>
         <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">e</Button>
         <Button Grid.Row="5" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Height="39" Margin="2,2,2,0" VerticalAlignment="Top">Ⅽ</Button>
-        <Button Grid.Row="5" Grid.Column="4" Style="{StaticResource NomalButtonStyle}">⌫</Button>
+        <Button Grid.Row="5" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding DelCommand}">⌫</Button>
 
-        <Button x:Name="sqr" Grid.Row="6" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">x²</Button>
+        <Button Grid.Row="6" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSqr}"/>
         <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource NomalButtonStyle}">1/x</Button>
         <Button Grid.Row="6" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">|x|</Button>
         <Button Grid.Row="6" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">exp</Button>
         <Button Grid.Row="6" Grid.Column="4" Style="{StaticResource NomalButtonStyle}">mod</Button>
 
-        <Button x:Name="root" Grid.Row="7" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">2√x</Button>
-        <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource NomalButtonStyle}">(</Button>
-        <Button Grid.Row="7" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">)</Button>
+        <Button Grid.Row="7" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonRoot}" /> 
+        <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding BasketCommand}" CommandParameter="(">(</Button>
+        <Button Grid.Row="7" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding BasketCommand}" CommandParameter=")">)</Button>
         <Button Grid.Row="7" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">n!</Button>
         <Button Grid.Row="7" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding CalculationCommand}" CommandParameter="÷">÷</Button>
 
-        <Button x:Name="square" Grid.Row="8" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">x^y</Button>
+        <Button Grid.Row="8" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSquare}" />
         <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="7">7</Button>
         <Button Grid.Row="8" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="8">8</Button>
         <Button Grid.Row="8" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="9">9</Button>
         <Button Grid.Row="8" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding CalculationCommand}" CommandParameter="×">×</Button>
 
-        <Button x:Name="square10" Grid.Row="9" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">10^x</Button>
+        <Button Grid.Row="9" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSquare10}" />
         <Button Grid.Row="9" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="4">4</Button>
         <Button Grid.Row="9" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="5">5</Button>
         <Button Grid.Row="9" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="6">6</Button>
         <Button Grid.Row="9" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding CalculationCommand}" CommandParameter="-">-</Button>
 
-        <Button x:Name="log" Grid.Row="10" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">log</Button>
+        <Button Grid.Row="10" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonLog}" />
         <Button Grid.Row="10" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="1">1</Button>
         <Button Grid.Row="10" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="2">2 </Button>
         <Button Grid.Row="10" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="3">3</Button>
         <Button Grid.Row="10" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding CalculationCommand}" CommandParameter="+">+</Button>
 
-        <Button x:Name="nSquare" Grid.Row="11" Grid.Column="0" Style="{StaticResource NomalButtonStyle}">ln</Button>
+        <Button Grid.Row="11" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonNSquare}" />
         <Button Grid.Row="11" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding ChangePMCommand}" CommandParameter="">+/-</Button>
         <Button Grid.Row="11" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="0">0</Button>
         <Button Grid.Row="11" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding DotNumberCommand}" CommandParameter=".">.</Button>

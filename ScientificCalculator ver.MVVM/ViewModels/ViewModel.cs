@@ -13,20 +13,279 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
     public class ViewModel : INotifyPropertyChanged
     {
         internal string inputNumber = "";
+        internal string resultNumber = "0";
         internal string currentExpression = "";
+
         internal bool _isInt = true;
+        internal bool _isBreaket = false;
+
+        private bool _isToggled = false;
+        private bool _isTrigonometryPopupOpen;
+        private bool _isFunctuonPopupOpen;
+        private bool _is2nd = false;
+        private bool _isHyp = false;
+
+        private string _buttonSqr = "x²";
+        private string _buttonRoot = "2√x";
+        private string _buttonSquare = " x^y";
+        private string _buttonSquare10 = "10^x";
+        private string _buttonLog = "log";
+        private string _buttonNSquare = "ln";
+
+        private string _buttonSin = "sin";
+        private string _buttonCos = "cos";
+        private string _buttonTan = "tan";
+        private string _buttonSec = "sec";
+        private string _buttonCsc = "csc";
+        private string _buttonCot = "cot";
+
+        private string _buttonABS = "abs";
+        private string _buttonFloor = "floor";
+        private string _buttonCeil = "ceil";
+        private string _buttonRand = "rand";
+        private string _buttonDMS = "->dms";
+        private string _buttonDEG = "->deg";
+
+
+        private string _angleContent;
 
         private double _inputNumberFontSize;
         private double _currentExpressionFontSize;
+        
         private readonly TextSIze _textSize = new TextSIze();
+
 
         NumPad numPad = new NumPad();
         FormatHelper formatHelper = new FormatHelper();
+        OperatorButton operatorButton = new OperatorButton();
+
+        public bool IsToggled
+        {
+            get => _isToggled;
+            set
+            {
+                if (_isToggled != value)
+                {
+                    _isToggled = value;
+                    UpdateButtonContents();
+                    OnPropertyChanged(nameof(IsToggled));
+                }
+            }
+        }
+        public bool IsTrigonometryPopupOpen
+        {
+            get => _isTrigonometryPopupOpen;
+            set => SetProperty(ref _isTrigonometryPopupOpen, value);
+        }
+        public bool IsFunctionPopupOpen
+        {
+            get => _isFunctuonPopupOpen;
+            set => SetProperty(ref _isFunctuonPopupOpen, value);
+        }
+
+        public bool Is2nd
+        {
+            get => _is2nd;
+            set
+            {
+                if (_is2nd != value)
+                {
+                    _is2nd = value;
+                    UpdateButtonContents();
+                    OnPropertyChanged(nameof(_is2nd));
+                }
+            }
+        }
+
+        public bool IsHyp
+        {
+            get => _isHyp;
+            set
+            {
+                if (_isHyp != value)
+                {
+                    _isHyp = value;
+                    UpdateButtonContents();
+                    OnPropertyChanged(nameof(_isHyp));
+                }
+            }
+        }
+
+        //넘패드 2nd
+        public string ButtonSqr
+        {
+            get => _buttonSqr;
+            set => SetProperty(ref _buttonSqr, value);
+        }
+
+        public string ButtonRoot
+        {
+            get => _buttonRoot;
+            set => SetProperty(ref _buttonRoot, value);
+        }
+
+        public string ButtonSquare
+        {
+            get => _buttonSquare;
+            set => SetProperty(ref _buttonSquare, value);
+        }
+
+        public string ButtonSquare10
+        {
+            get => _buttonSquare10;
+            set => SetProperty(ref _buttonSquare10, value);
+        }
+
+        public string ButtonLog
+        {
+            get => _buttonLog;
+            set => SetProperty(ref _buttonLog, value);
+        }
+
+        public string ButtonNSquare
+        {
+            get => _buttonNSquare;
+            set => SetProperty(ref _buttonNSquare, value);
+        }
+        public string AngleChange
+        {
+            get => _angleContent;
+            set => SetProperty(ref _angleContent, value);
+        }
+        
+        //삼각법
+        public string ButtonSin
+        {
+            get => _buttonSin;
+            set => SetProperty(ref _buttonSin, value);
+        }
+        public string ButtonCos
+        {
+            get => _buttonCos;
+            set => SetProperty(ref _buttonCos, value);
+        }
+        public string ButtonTan
+        {
+            get => _buttonTan;
+            set => SetProperty(ref _buttonTan, value);
+        }
+        public string ButtonSec
+        {
+            get => _buttonSec;
+            set => SetProperty(ref _buttonSec, value);
+        }
+        public string ButtonCsc
+        {
+            get => _buttonCsc;
+            set => SetProperty(ref _buttonCsc, value);
+        }
+        public string ButtonCot
+        {
+            get => _buttonCot;
+            set => SetProperty(ref _buttonCot, value);
+        }
+
+        //함수
+        public string ButtonABS
+        {
+            get => _buttonABS;
+            set => SetProperty(ref _buttonABS, value);
+        }
+        public string ButtonFloor
+        {
+            get => _buttonFloor;
+            set => SetProperty(ref _buttonFloor, value);
+        }
+        public string ButtonCeil
+        {
+            get => _buttonCeil;
+            set => SetProperty(ref _buttonCeil, value);
+        }
+        public string ButtonRand
+        {
+            get => _buttonRand;
+            set => SetProperty(ref _buttonRand, value);
+        }
+        public string ButtonDMS
+        {
+            get => _buttonDMS;
+            set => SetProperty(ref _buttonDMS, value);
+        }
+        public string ButtonDEG
+        {
+            get => _buttonDEG;
+            set => SetProperty(ref _buttonDEG, value);
+        }
+
+        private void UpdateButtonContents()
+        {
+            if (_isToggled)
+            {
+                ButtonSqr = "x³";
+                ButtonRoot = "3√x";
+                ButtonSquare = "y√x";
+                ButtonSquare10 = "2^x";
+                ButtonLog = "log_y(x)";
+                ButtonNSquare = "e^x";
+            }
+            else
+            {
+                ButtonSqr = "x²";
+                ButtonRoot = "2√x";
+                ButtonSquare = " x^y";
+                ButtonSquare10 = "10^x";
+                ButtonLog = "log";
+                ButtonNSquare = "ln";
+            }
+
+            if(_is2nd && _isHyp)
+            {
+                ButtonSin = "sinh^-1";
+                ButtonCos = "cosh^-1";
+                ButtonTan = "tanh^-1";
+                ButtonSec = "sech^-1";
+                ButtonCsc = "csch^-1";
+                ButtonCot = "coth^-1";
+            }
+            else if(_is2nd && !_isHyp)
+            {
+                ButtonSin = "sin^-1";
+                ButtonCos = "cos^-1";
+                ButtonTan = "tan^-1";
+                ButtonSec = "sec^-1";
+                ButtonCsc = "csc^-1";
+                ButtonCot = "cot^-1";
+            }
+            else if( !_is2nd && _isHyp)
+            {
+                ButtonSin = "sinh";
+                ButtonCos = "cosh";
+                ButtonTan = "tanh";
+                ButtonSec = "sech";
+                ButtonCsc = "csch";
+                ButtonCot = "coth";
+            }
+            else 
+            {
+                ButtonSin = "sin";
+                ButtonCos = "cos";
+                ButtonTan = "tan";
+                ButtonSec = "sec";
+                ButtonCsc = "csc";
+                ButtonCot = "cot";
+            }
+        }//토글 버튼 활성화에 따른 버튼 콘텐츠 값
 
         public ICommand NumberCommand { get; private set; }
         public ICommand DotNumberCommand { get; private set; }
         public ICommand ChangePMCommand { get; private set; }
         public ICommand CalculationCommand { get; private set; }
+        public ICommand BasketCommand { get; private set; }
+        public ICommand AngleChangeCommand { get; private set; }
+        public ICommand DelCommand { get; private set; }
+        public ICommand PiCommand { get; private set; }
+        public ICommand ToggleTrigonometryPopupCommand { get; }
+        public ICommand ToggleFunctionPopupCommand { get; }
 
         public ViewModel()
         {
@@ -35,8 +294,26 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             DotNumberCommand = new RelayCommand<object>(AddDotNumberWrapper);
             ChangePMCommand = new RelayCommand<object>(ChangePMWrapper);
             CalculationCommand = new RelayCommand<object>(CalculationWrapper);
+            BasketCommand = new RelayCommand<object>(BasketWrapper);
+            AngleChangeCommand = new RelayCommand(ChangeAngleContent);
+            AngleChange = "DEG";
+            ToggleTrigonometryPopupCommand = new RelayCommand(ToggleTrigonometryPopup);
+            ToggleFunctionPopupCommand = new RelayCommand(ToggleFunctionPopup);
+            DelCommand = new RelayCommand(DelNumberWrapper);
+            PiCommand = new RelayCommand(PiNumberWrapper);
             UpdateFontSizes();
         }
+
+        private void ToggleTrigonometryPopup()
+        {
+            IsTrigonometryPopupOpen = !IsTrigonometryPopupOpen;
+        }
+
+        private void ToggleFunctionPopup()
+        {
+            IsFunctionPopupOpen = !IsFunctionPopupOpen;
+        }
+
 
         public double InputNumberFontSize
         {
@@ -49,6 +326,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             get => _currentExpressionFontSize;
             set => SetProperty(ref _currentExpressionFontSize, value);
         }
+
 
         internal void UpdateFontSizes()
         {
@@ -98,6 +376,31 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             numPad.ExpressionUp(parameter, this);
         }
 
+        private void BasketWrapper(object parameter)
+        {
+            operatorButton.Basket(parameter, this);
+        }
+
+        private void DelNumberWrapper()
+        {
+            operatorButton.DelNumber(this);
+        }
+
+        private void PiNumberWrapper()
+        {
+            operatorButton.PiNumber(this);
+        }
+
+        private void ChangeAngleContent()
+        {
+            if (AngleChange == "DEG")
+                AngleChange = "RAD";
+            else if (AngleChange == "RAD")
+                AngleChange = "GRAD";
+            else
+                AngleChange = "DEG";
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -132,8 +435,15 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 }
                 else
                 {
-                    str = viewModel.inputNumber + str;
-                    viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
+                    if(viewModel.resultNumber == viewModel.inputNumber)
+                    {
+                        viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
+                    }
+                    else
+                    {
+                        str = viewModel.inputNumber + str;
+                        viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
+                    }
                     viewModel.UpdateFontSizes();
                 }
             }
@@ -166,23 +476,32 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         internal void ExpressionUp(object parameter, ViewModel viewModel)
         {
-            string str = viewModel.InputNumber;
-            if (str.EndsWith("."))
+            if (viewModel.currentExpression.Trim().EndsWith(")"))
             {
-                str = str.Replace(".", "");
+                viewModel.CurrentExpression += Convert.ToString(parameter);
             }
-            viewModel.currentExpression += str;
-            viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
-            viewModel.CurrentExpression += " " + Convert.ToString(parameter) + " ";
-            viewModel.UpdateFontSizes();
-            viewModel._isInt = true;
+            else
+            {
+                string str = viewModel.InputNumber;
+                if (str.EndsWith("."))
+                {
+                    str = str.Replace(".", "");
+                }
+                viewModel.currentExpression += str;
+                if (!viewModel._isBreaket)
+                {
+                    viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
+                }
+                viewModel.resultNumber = viewModel.inputNumber;
+                viewModel.CurrentExpression += " " + Convert.ToString(parameter) + " ";
+                viewModel.UpdateFontSizes();
+                viewModel._isInt = true;
+            }
 
         }//연산
 
-        internal void BraketUp(object parameter, ViewModel viewModel)
-        {
-            string braket = Convert.ToString(parameter);
-        }
+        
+
     }//숫자, 소수점 패드.
 
     class TextSIze
@@ -200,10 +519,59 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         {
 
             if (viewModel.currentExpression.Length < 10) return 20;
-            if (viewModel.currentExpression.Length < 20) return 15;
-            if (viewModel.currentExpression.Length < 30) return 10;
+            if (viewModel.currentExpression.Length < 20) return 18;
+            if (viewModel.currentExpression.Length < 30) return 15;
 
             return 12;
         } // 텍스트 사이즈 자동조절
     }
+
+    class OperatorButton
+    {
+        FormatHelper formatHelper = new FormatHelper();
+        Calculration calculration = new Calculration();
+
+        internal void Basket(object parameter, ViewModel viewModel)
+        {
+            if(Convert.ToString(parameter) == "(" && viewModel._isBreaket == false)
+            {
+               if(viewModel.resultNumber == viewModel.inputNumber || viewModel.inputNumber == "0" || viewModel.inputNumber == "1")
+                {
+                    if (!viewModel.currentExpression.EndsWith("("))
+                    {
+                        viewModel.CurrentExpression += " ( ";
+                    }
+                }
+                else
+                {
+                    viewModel.CurrentExpression += viewModel.inputNumber + " × ( ";
+                    viewModel.resultNumber = viewModel.inputNumber; 
+                }
+               viewModel._isBreaket = true;
+            }
+            else
+            {
+                if (viewModel._isBreaket)
+                {
+                    viewModel.CurrentExpression += viewModel.inputNumber + " ) ";
+                    viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
+                    viewModel.resultNumber = viewModel.inputNumber;
+                }
+                viewModel._isBreaket = false;
+            }
+            //calculration.Basket(parameter.ToString, viewModel);
+            //여기서 수식 저장 및 결과 반환
+        }
+        
+        internal void DelNumber(ViewModel viewModel)
+        {
+            viewModel.InputNumber = calculration.DelNumber(viewModel.inputNumber);
+        }//뒷글자 제거
+
+        internal void PiNumber(ViewModel viewModel)
+        {
+            viewModel.InputNumber = calculration.PiNumber();
+        }
+    }
 }
+

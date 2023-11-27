@@ -16,6 +16,7 @@ namespace ScientificCalculator_ver.MVVM.Models
         {
             System.Diagnostics.Debug.WriteLine(SignConverter(str));
             Expression expr = new Expression(SignConverter(str));
+            System.Diagnostics.Debug.WriteLine(expr);
             object result = expr.Evaluate();
 
             return Convert.ToString(result);
@@ -28,6 +29,26 @@ namespace ScientificCalculator_ver.MVVM.Models
             str = str.Replace("×", "*");
 
             return str;
+        }
+
+        internal string DelNumber(string inputNumber)
+        {
+            if(inputNumber == "0" || inputNumber.Length == 1)
+            {
+                return "0";
+            }
+            else
+            {
+                inputNumber = inputNumber.Substring(0, inputNumber.Length - 1);
+                return inputNumber;
+            }
+            //최종 수정값
+        }
+
+        internal string PiNumber()
+        {
+            string inputNumber = Convert.ToString(Math.PI);
+            return inputNumber;
         }
 
     }
