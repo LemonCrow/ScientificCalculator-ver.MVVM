@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ScientificCalculator_ver.MVVM.ViewModels;
 using NCalc;
 using System.Windows.Navigation;
+using System.Text.RegularExpressions;
 
 namespace ScientificCalculator_ver.MVVM.Models
 {
@@ -14,7 +15,7 @@ namespace ScientificCalculator_ver.MVVM.Models
 
         internal string MathResult(string str)
         {
-            System.Diagnostics.Debug.WriteLine(SignConverter(str));
+            System.Diagnostics.Debug.WriteLine(str);
             Expression expr = new Expression(SignConverter(str));
             expr.EvaluateFunction += (name, args) =>
             {
@@ -32,10 +33,9 @@ namespace ScientificCalculator_ver.MVVM.Models
                     var parameter = Convert.ToDouble(args.Parameters[0].Evaluate());
                     args.Result = Math.Pow(parameter, 2);
                 }
-
             };
-            System.Diagnostics.Debug.WriteLine(expr);
             expr.Parameters["Pi"] = Math.PI;
+
             object result = expr.Evaluate();
 
             return Convert.ToString(result);
@@ -44,10 +44,10 @@ namespace ScientificCalculator_ver.MVVM.Models
 
         private string SignConverter(string str)
         {
+            string num;
             str = str.Replace("÷", "/");
             str = str.Replace("×", "*");
             str = str.Replace("mod", "%");
-            
 
             return str;
         }

@@ -19,6 +19,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         internal bool _isInt = true;
         internal bool _isBreaket = false;
+        
 
         private bool _isToggled = false;
         private bool _isTrigonometryPopupOpen;
@@ -561,6 +562,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             viewModel.InputNumber = "0";
             viewModel.UpdateFontSizes();
             viewModel._isInt = true;
+            viewModel._isBreaket = false;
         }
 
 
@@ -618,8 +620,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             {
                 if (viewModel._isBreaket)
                 {
-                    viewModel.CurrentExpression += viewModel.inputNumber + " ) ";
-                    viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
+                    if(viewModel.currentExpression.Trim().EndsWith(")"))
+                        viewModel.CurrentExpression += " ) ";
+                    else
+                        viewModel.CurrentExpression += viewModel.inputNumber + " ) ";
+                    viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult((viewModel.currentExpression))));
                     viewModel.resultNumber = viewModel.inputNumber;
                 }
                 viewModel._isBreaket = false;
@@ -657,15 +662,24 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 viewModel.CurrentExpression += viewModel.inputNumber + " mod ";
                 viewModel.resultNumber = viewModel.inputNumber;
             }
-            else if(Convert.ToString(parameter) == "x^2")
+            else if(Convert.ToString(parameter) == "x²")
             {
                 viewModel.CurrentExpression += " sqr(" + viewModel.inputNumber + ") ";
                 isOperator = true;
             }
+            else if(Convert.ToString(parameter) == "e^x")
+            {
+                if (!viewModel._isBreaket)
+                    isOperator = true;
+                else
+                    viewModel.resultNumber = viewModel.inputNumber;
+                viewModel.CurrentExpression += " Pow(" + Math.E + " , " + viewModel.inputNumber + ") ";
+                
+            }
             
             if(isOperator)
             {
-                viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
+                viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(viewModel.currentExpression)));
                 viewModel.resultNumber = viewModel.inputNumber;
                 viewModel.UpdateFontSizes();
                 viewModel._isInt = true;

@@ -93,7 +93,18 @@ namespace ScientificCalculator_ver.MVVM.Models
 
         internal string FormatNumberDelCommas(string str)
         {
-            return str.Replace(",", "");
+            string[] arr = str.Split(" ");
+            if(arr.Length > 1)
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i] != ",")
+                        arr[i].Replace(",", "");
+                }
+            }
+            str = string.Join(" ", arr);
+
+            return str;
         }//콤마제거
 
         internal bool CountNumber(string str)
