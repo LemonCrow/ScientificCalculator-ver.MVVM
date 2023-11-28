@@ -22,7 +22,13 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         internal bool _isInt = true;
         internal bool _isBreaket = false;
         internal bool _isExp = false;
-        
+
+        //메모리
+        internal bool _isMC = false;
+        internal bool _isMR = false;
+        internal bool _isMS = true;
+        internal bool _isMP = true;
+        internal bool _isMM = true;
 
         private bool _isToggled = false;
         private bool _isFE = false;
@@ -67,6 +73,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         NumPad numPad = new NumPad();
         FormatHelper formatHelper = new FormatHelper();
         OperatorButton operatorButton = new OperatorButton();
+        MemoryButton memoryButton = new MemoryButton();
 
         public bool IsToggled
         {
@@ -96,6 +103,51 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                     }
                     OnPropertyChanged(nameof(_isFE));
                 }
+            }
+        }
+        public bool IsMC
+        {
+            get => _isMC;
+            set
+            {
+                _isMC = value;
+                OnPropertyChanged(nameof(IsMC));
+            }
+        }
+        public bool IsMR
+        {
+            get => _isMR;
+            set
+            {
+                _isMR = value;
+                OnPropertyChanged(nameof(IsMR));
+            }
+        }
+        public bool IsMS
+        {
+            get => _isMS;
+            set
+            {
+                _isMS = value;
+                OnPropertyChanged(nameof(IsMS));
+            }
+        }
+        public bool IsMP
+        {
+            get => _isMP;
+            set
+            {
+                _isMP = value;
+                OnPropertyChanged(nameof(IsMP));
+            }
+        }
+        public bool IsMM
+        {
+            get => _isMM;
+            set
+            {
+                _isMM = value;
+                OnPropertyChanged(nameof(IsMM));
             }
         }
 
@@ -318,6 +370,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public ICommand DelCommand { get; private set; }
         public ICommand SurdCommand { get; private set; }
         public ICommand SpecialNumberCommand { get; private set; }
+        public ICommand MemoryCommand { get; private set; }
         public ICommand ToggleTrigonometryPopupCommand { get; }
         public ICommand ToggleFunctionPopupCommand { get; }
         public ICommand CECommand { get; }
@@ -338,6 +391,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             SurdCommand = new RelayCommand<object>(SurdNumberWrapper);
             SpecialNumberCommand = new RelayCommand<object>(SpecialNumberWrapper);
             CECommand = new RelayCommand(CEWrapper);
+            MemoryCommand = new RelayCommand<object>(MemoryWrapper);
             UpdateFontSizes();
         }
 
@@ -438,6 +492,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         private void SpecialNumberWrapper(object parameter)
         {
             operatorButton.SpecialNumber(parameter ,this);
+        }
+
+        private void MemoryWrapper(object parameter)
+        {
+            memoryButton.MemoryController(parameter, this);
         }
 
         private void CEWrapper()
@@ -929,6 +988,52 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             }
         }
 
+    }
+
+    class MemoryButton
+    {
+        Memory memory = new Memory();
+
+        internal void MemoryController(object parameter, ViewModel viewModel)
+        {
+            if (parameter != null) 
+            {
+                string type = parameter as string;
+                System.Diagnostics.Debug.WriteLine(type);
+                if (type == "MC") 
+                {
+                    memory.Clear();
+                    viewModel.IsMC = false;
+                    viewModel.IsMR = false;
+                }
+                else if (type == "MR")
+                {
+                    viewModel.InputNumber = memory.Return();
+                }
+                else if (type == "M+")
+                {
+                    memory.Add(viewModel.inputNumber);
+                    viewModel.IsMC = true;
+                    viewModel.IsMR = true;
+                    viewModel.resultNumber = viewModel.inputNumber;
+                }
+                else if (type == "M-")
+                {
+                    memory.Min(viewModel.inputNumber);
+                    viewModel.IsMC = true;
+                    viewModel.IsMR = true;
+                    viewModel.resultNumber = viewModel.inputNumber;
+                }
+                else if (type == "MS")
+                {
+                    memory.Create(viewModel.inputNumber);
+                    viewModel.IsMC = true;
+                    viewModel.IsMR = true;
+                    viewModel.resultNumber = viewModel.inputNumber;
+                }
+            }
+            
+        }
     }
 }
 
