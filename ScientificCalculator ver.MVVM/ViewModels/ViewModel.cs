@@ -738,6 +738,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 viewModel.CurrentExpression += " log(" + viewModel.inputNumber + ") ";
                 isOperator = true;
             }
+            else if (Convert.ToString(parameter) == "1/x")
+            {
+                viewModel.CurrentExpression += " 1 / (" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
 
             if (isOperator)
             {
