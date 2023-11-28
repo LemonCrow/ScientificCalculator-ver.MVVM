@@ -77,6 +77,11 @@ namespace ScientificCalculator_ver.MVVM.Models
                     double y = Convert.ToDouble(args.Parameters[1].Evaluate());
                     args.Result = Math.Pow(x, y);
                 }
+                if (name == "log")
+                {
+                    double value = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Log10(value);
+                }
             };
             expr.Parameters["Pi"] = Math.PI;
             expr.Parameters["e"] = Math.E;

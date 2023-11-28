@@ -733,6 +733,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 viewModel.resultNumber = viewModel.inputNumber;
                 viewModel._isInt = true;
             }
+            else if (Convert.ToString(parameter) == "log")
+            {
+                viewModel.CurrentExpression += " log(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
 
             if (isOperator)
             {
