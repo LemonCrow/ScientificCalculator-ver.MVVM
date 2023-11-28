@@ -976,6 +976,31 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             //삼각법 all on
             //여기까지 삼각법
 
+            else if (Convert.ToString(parameter) == "floor")
+            {
+                viewModel.CurrentExpression += " floor(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "ceil")
+            {
+                viewModel.CurrentExpression += " ceil(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "rand")
+            {
+                viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas("rand()"))));
+                
+            }
+            else if (Convert.ToString(parameter) == "->dms")
+            {
+                viewModel.CurrentExpression += " dms(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "->deg")
+            {
+                viewModel.CurrentExpression += " degrees(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
             //여기까지 함수
 
             if (isOperator)

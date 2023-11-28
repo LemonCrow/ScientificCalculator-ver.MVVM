@@ -167,6 +167,40 @@ namespace ScientificCalculator_ver.MVVM.Models
                     double x = Convert.ToDouble(args.Parameters[0].Evaluate());
                     args.Result = 0.5 * Math.Log((x + 1) / (x - 1));
                 }
+                if (name == "floor")
+                {
+                    args.Result = Math.Floor(Convert.ToDouble(args.Parameters[0].Evaluate()));
+                }
+                else if (name == "ceil")
+                {
+                    args.Result = Math.Ceiling(Convert.ToDouble(args.Parameters[0].Evaluate()));
+                }
+                else if (name == "rand")
+                {
+                    Random rnd = new Random();
+                    args.Result = rnd.NextDouble();
+                }
+                else if (name == "dms")
+                {
+                    double decimalDegrees = Convert.ToDouble(args.Parameters[0].Evaluate());
+
+                    if (decimalDegrees % 1 == 0) 
+                    {
+                        args.Result = decimalDegrees;
+                    }
+                    else
+                    {
+                        int degrees = (int)decimalDegrees;
+                        double decimalMinutes = (decimalDegrees - degrees) * 60;
+                        int minutes = (int)Math.Round(decimalMinutes);
+
+                        args.Result = degrees + minutes / 100.0;
+                    }
+                }
+                else if (name == "degrees")
+                {
+                    args.Result = Convert.ToDouble(args.Parameters[0].Evaluate()) * (180 / Math.PI);
+                }
 
             };
             expr.Parameters["Pi"] = Math.PI;

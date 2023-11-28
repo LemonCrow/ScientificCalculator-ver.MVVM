@@ -191,13 +191,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="abs" Grid.Row="0" Grid.Column="0" Content="abs" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="floor" Grid.Row="0" Grid.Column="1" Content="floor" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="ceil" Grid.Row="0" Grid.Column="2" Content="ceil" Style="{StaticResource NomalButtonStyle}"/>
+                    <Button x:Name="abs" Grid.Row="0" Grid.Column="0" Content="abs" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                    <Button x:Name="floor" Grid.Row="0" Grid.Column="1" Content="floor" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                    <Button x:Name="ceil" Grid.Row="0" Grid.Column="2" Content="ceil" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 
-                    <Button x:Name="rand" Grid.Row="1" Grid.Column="0" Content="rand" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="dms" Grid.Row="1" Grid.Column="1" Content="->dms" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="degrees" Grid.Row="1" Grid.Column="2" Content="->deg" Style="{StaticResource NomalButtonStyle}"/>
+                    <Button x:Name="rand" Grid.Row="1" Grid.Column="0" Content="rand" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                    <Button x:Name="dms" Grid.Row="1" Grid.Column="1" Content="->dms" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                    <Button x:Name="degrees" Grid.Row="1" Grid.Column="2" Content="->deg" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 
                 </Grid>
             </Border>
