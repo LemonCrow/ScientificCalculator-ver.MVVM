@@ -82,6 +82,92 @@ namespace ScientificCalculator_ver.MVVM.Models
                     double value = Convert.ToDouble(args.Parameters[0].Evaluate());
                     args.Result = Math.Log10(value);
                 }
+                if (name == "Sec")
+                {
+                    args.Result = 1 / Math.Cos(Convert.ToDouble(args.Parameters[0].Evaluate()));
+                }
+                else if (name == "Csc")
+                {
+                    args.Result = 1 / Math.Sin(Convert.ToDouble(args.Parameters[0].Evaluate()));
+                }
+                else if (name == "Cot")
+                {
+                    args.Result = 1 / Math.Tan(Convert.ToDouble(args.Parameters[0].Evaluate()));
+                }
+                if (name == "Asec")
+                {
+                    args.Result = Math.Acos(1 / Convert.ToDouble(args.Parameters[0].Evaluate()));
+                }
+                else if (name == "Acsc")
+                {
+                    args.Result = Math.Asin(1 / Convert.ToDouble(args.Parameters[0].Evaluate()));
+                }
+                else if (name == "Acot")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.PI / 2 - Math.Atan(x);
+                }
+                if (name == "Sinh")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = (Math.Exp(x) - Math.Exp(-x)) / 2;
+                }
+                else if (name == "Cosh")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = (Math.Exp(x) + Math.Exp(-x)) / 2;
+                }
+                else if (name == "Tanh")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = (Math.Exp(x) - Math.Exp(-x)) / (Math.Exp(x) + Math.Exp(-x));
+                }
+                else if (name == "Sech")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = 2 / (Math.Exp(x) + Math.Exp(-x));
+                }
+                else if (name == "Csch")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = 2 / (Math.Exp(x) - Math.Exp(-x));
+                }
+                else if (name == "Coth")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = (Math.Exp(x) + Math.Exp(-x)) / (Math.Exp(x) - Math.Exp(-x));
+                }
+                if (name == "Asinh")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Log(x + Math.Sqrt(x * x + 1));
+                }
+                else if (name == "Acosh")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Log(x + Math.Sqrt(x * x - 1));
+                }
+                else if (name == "Atanh")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = 0.5 * Math.Log((1 + x) / (1 - x));
+                }
+                else if (name == "Asech")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Log(1 / x + Math.Sqrt(1 / (x * x) - 1));
+                }
+                else if (name == "Acsch")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Log(1 / x + Math.Sqrt(1 / (x * x) + 1));
+                }
+                else if (name == "Acoth")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = 0.5 * Math.Log((x + 1) / (x - 1));
+                }
+
             };
             expr.Parameters["Pi"] = Math.PI;
             expr.Parameters["e"] = Math.E;

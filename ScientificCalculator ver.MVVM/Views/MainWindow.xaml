@@ -164,14 +164,14 @@
                     </Grid.ColumnDefinitions>
 
                     <ToggleButton IsChecked="{Binding Is2nd}" x:Name="Trigonometry2nd" Grid.Row="0" Grid.Column="0" Content="2nd" Style="{StaticResource lightToggleButtonStyle}"/>
-                    <Button x:Name="sin" Grid.Row="0" Grid.Column="1" Content="{Binding ButtonSin}" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="cos" Grid.Row="0" Grid.Column="2" Content="{Binding ButtonCos}" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="tan" Grid.Row="0" Grid.Column="3" Content="{Binding ButtonTan}" Style="{StaticResource NomalButtonStyle}"/>
+                    <Button x:Name="sin" Grid.Row="0" Grid.Column="1" Content="{Binding ButtonSin}" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                    <Button x:Name="cos" Grid.Row="0" Grid.Column="2" Content="{Binding ButtonCos}" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                    <Button x:Name="tan" Grid.Row="0" Grid.Column="3" Content="{Binding ButtonTan}" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 
                     <ToggleButton IsChecked="{Binding IsHyp}" x:Name="TrigonometryHyp" Grid.Row="1" Grid.Column="0" Content="hyp" Style="{StaticResource lightToggleButtonStyle}"/>
-                    <Button x:Name="sec" Grid.Row="1" Grid.Column="1" Content="{Binding ButtonSec}" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="csc" Grid.Row="1" Grid.Column="2" Content="{Binding ButtonCsc}" Style="{StaticResource NomalButtonStyle}"/>
-                    <Button x:Name="cot" Grid.Row="1" Grid.Column="3" Content="{Binding ButtonCot}" Style="{StaticResource NomalButtonStyle}"/>
+                    <Button x:Name="sec" Grid.Row="1" Grid.Column="1" Content="{Binding ButtonSec}" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                    <Button x:Name="csc" Grid.Row="1" Grid.Column="2" Content="{Binding ButtonCsc}" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+                    <Button x:Name="cot" Grid.Row="1" Grid.Column="3" Content="{Binding ButtonCot}" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 
                 </Grid>
             </Border>

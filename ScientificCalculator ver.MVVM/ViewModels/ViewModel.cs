@@ -17,6 +17,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         internal string inputNumber = "";
         internal string resultNumber = "0";
         internal string currentExpression = "";
+        internal string degres = "angle * " + Math.PI + " / 180"; //각도 DEG버튼
 
         internal bool _isInt = true;
         internal bool _isBreaket = false;
@@ -447,11 +448,20 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         private void ChangeAngleContent()
         {
             if (AngleChange == "DEG")
+            {
                 AngleChange = "RAD";
+                degres = "angle";
+            }
             else if (AngleChange == "RAD")
+            {
                 AngleChange = "GRAD";
+                degres = "angle * " + Math.PI + " / 200";
+            }
             else
+            {
                 AngleChange = "DEG";
+                degres = "angle * " + Math.PI + " / 180";
+            }
         }
 
 
@@ -507,7 +517,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         {
             string str = viewModel.inputNumber + Convert.ToString(parameter);
 
-            if (viewModel.inputNumber != "0" && viewModel._isInt == true && !viewModel._isExp)
+            if (viewModel._isInt == true && !viewModel._isExp)
             {
                 viewModel._isInt = false;
                 viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
@@ -776,6 +786,138 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 viewModel.CurrentExpression += " 2 pow " + viewModel.inputNumber + " ";
                 isOperator = true;
             }
+            //여기까지 밑의 함수
+
+            else if (Convert.ToString(parameter) == "sin")
+            {
+                viewModel.CurrentExpression += " Sin(" + viewModel.degres.Replace("angle", viewModel.inputNumber) + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "cos")
+            {
+                viewModel.CurrentExpression += " Cos(" + viewModel.degres.Replace("angle", viewModel.inputNumber) + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "tan")
+            {
+                viewModel.CurrentExpression += " Tan(" + viewModel.degres.Replace("angle", viewModel.inputNumber) + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "sec")
+            {
+                viewModel.CurrentExpression += " Sec(" + viewModel.degres.Replace("angle", viewModel.inputNumber) + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "csc")
+            {
+                viewModel.CurrentExpression += " Csc(" + viewModel.degres.Replace("angle", viewModel.inputNumber) + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "cot")
+            {
+                viewModel.CurrentExpression += " Cot(" + viewModel.degres.Replace("angle", viewModel.inputNumber) + ") ";
+                isOperator = true;
+            }
+            //삼각법 all off
+
+            else if (Convert.ToString(parameter) == "sin^-1" && double.Parse(viewModel.inputNumber) <= 1 && double.Parse(viewModel.inputNumber) >= -1)
+            {
+                viewModel.CurrentExpression += " Asin(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "cos^-1" && double.Parse(viewModel.inputNumber) <= 1 && double.Parse(viewModel.inputNumber) >= -1)
+            {
+                viewModel.CurrentExpression += " Acos(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "tan^-1" && double.Parse(viewModel.inputNumber) <= 1 && double.Parse(viewModel.inputNumber) >= -1)
+            {
+                viewModel.CurrentExpression += " Atan(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "sec^-1" && double.Parse(viewModel.inputNumber) <= 1 && double.Parse(viewModel.inputNumber) >= -1)
+            {
+                viewModel.CurrentExpression += " Asec(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "csc^-1" && double.Parse(viewModel.inputNumber) <= 1 && double.Parse(viewModel.inputNumber) >= -1)
+            {
+                viewModel.CurrentExpression += " Acsc(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "cot^-1" && double.Parse(viewModel.inputNumber) <= 1 && double.Parse(viewModel.inputNumber) >= -1)
+            {
+                viewModel.CurrentExpression += " Acot(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            //삼각법 2nd on
+
+            else if (Convert.ToString(parameter) == "sinh")
+            {
+                viewModel.CurrentExpression += " Sinh(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "cosh")
+            {   
+                viewModel.CurrentExpression += " Cosh(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "tanh")
+            {
+                viewModel.CurrentExpression += " Tanh(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "sech")
+            {
+                viewModel.CurrentExpression += " Sech(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "csch")
+            {
+                viewModel.CurrentExpression += " Csch(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "coth")
+            {
+                viewModel.CurrentExpression += " Coth(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            //삼각법 hyp on
+
+            else if (Convert.ToString(parameter) == "sinh^-1")
+            {
+                viewModel.CurrentExpression += " Asinh(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "cosh^-1")
+            {
+                viewModel.CurrentExpression += " Acosh(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "tanh^-1")
+            {
+                viewModel.CurrentExpression += " Atanh(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "sech^-1")
+            {
+                viewModel.CurrentExpression += " Asech(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "csch^-1")
+            {
+                viewModel.CurrentExpression += " Acsch(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "coth^-1")
+            {
+                viewModel.CurrentExpression += " Acoth(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            //삼각법 all on
+            //여기까지 삼각법
+
+            //여기까지 함수
 
             if (isOperator)
             {
