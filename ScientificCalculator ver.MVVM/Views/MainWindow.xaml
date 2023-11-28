@@ -243,6 +243,6 @@
         <Button Grid.Row="11" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding ChangePMCommand}" CommandParameter="">+/-</Button>
         <Button Grid.Row="11" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="0">0</Button>
         <Button Grid.Row="11" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding DotNumberCommand}" CommandParameter=".">.</Button>
-        <Button Grid.Row="11" Grid.Column="4" Style="{StaticResource SpecialButtonStyle}">=</Button>
+        <Button Grid.Row="11" Grid.Column="4" Style="{StaticResource SpecialButtonStyle}" Command="{Binding EqualsButtonCommand}">=</Button>
     </Grid>
 </Window>

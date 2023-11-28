@@ -374,7 +374,8 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public ICommand ToggleTrigonometryPopupCommand { get; }
         public ICommand ToggleFunctionPopupCommand { get; }
         public ICommand CECommand { get; }
-
+        public ICommand EqualsButtonCommand { get; }
+    
         public ViewModel()
         {
             InputNumber = "0";
@@ -391,7 +392,8 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             SurdCommand = new RelayCommand<object>(SurdNumberWrapper);
             SpecialNumberCommand = new RelayCommand<object>(SpecialNumberWrapper);
             CECommand = new RelayCommand(CEWrapper);
-            MemoryCommand = new RelayCommand<object>(MemoryWrapper);
+            EqualsButtonCommand = new RelayCommand(EqualsButtonWrapper);
+            MemoryCommand = new RelayCommand<object>(MemoryWrapper); 
             UpdateFontSizes();
         }
 
@@ -504,6 +506,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             numPad.ButtonCE(_buttonCE, this);
         }
 
+        private void EqualsButtonWrapper()
+        {
+            numPad.EqualsButton(this);
+        }
+
         private void ChangeAngleContent()
         {
             if (AngleChange == "DEG")
@@ -598,6 +605,10 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         internal void ExpressionUp(object parameter, ViewModel viewModel)
         {
+            if (viewModel.currentExpression.Contains("="))
+            {
+                viewModel.CurrentExpression = "";
+            }
             if (viewModel.currentExpression.Trim().EndsWith(")"))
             {
                 viewModel.CurrentExpression += Convert.ToString(parameter);
@@ -663,9 +674,23 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             viewModel._isBreaket = false;
         }
 
+        internal void EqualsButton(ViewModel viewModel)
+        {
+            if(viewModel.currentExpression != null && viewModel.currentExpression != "" && viewModel.currentExpression.Contains("="))
+            {
+                viewModel.CurrentExpression += " " + viewModel.inputNumber;
+                viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
+                viewModel.CurrentExpression += " = " + viewModel.inputNumber;
+                viewModel.resultNumber = viewModel.inputNumber;
+                viewModel.UpdateFontSizes();
+                viewModel._isInt = true;
+                viewModel._isBreaket = false;
+            }
+            //
+        }
 
 
-        
+
 
     }//숫자, 소수점 패드.
 
@@ -745,6 +770,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         {
             bool isOperator = false;
             bool isExp = false;
+
+            if (viewModel.currentExpression.Contains("="))
+            {
+                viewModel.currentExpression = "";
+            }
 
             if (Convert.ToString(parameter) == "Fact")
             {
