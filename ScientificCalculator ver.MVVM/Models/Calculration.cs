@@ -33,8 +33,47 @@ namespace ScientificCalculator_ver.MVVM.Models
                     var parameter = Convert.ToDouble(args.Parameters[0].Evaluate());
                     args.Result = Math.Pow(parameter, 2);
                 }
+                if (name == "cube" && args.Parameters.Length == 1)
+                {
+                    var parameter = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Pow(parameter, 3);
+                }
+                if (name == "log_base")
+                {
+                    double y = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    double x = Convert.ToDouble(args.Parameters[1].Evaluate());
+                    args.Result = Math.Log(y) / Math.Log(x);
+                }
+                if (name == "yroot")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    double y = Convert.ToDouble(args.Parameters[1].Evaluate());
+                    args.Result = Math.Pow(x, 1.0 / y);
+                }
+                if (name == "cuberoot")
+                {
+                    double value = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Pow(value, 1.0 / 3.0);
+                }
+                if (name == "root")
+                {
+                    double value = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Pow(value, 1.0 / 2.0);
+                }
+                if (name == "ln")
+                {
+                    double value = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    args.Result = Math.Log(value);
+                }
+                if (name == "exp")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    double y = Convert.ToDouble(args.Parameters[1].Evaluate());
+                    args.Result = x * Math.Pow(10, y);
+                }
             };
             expr.Parameters["Pi"] = Math.PI;
+            expr.Parameters["e"] = Math.E;
 
             object result = expr.Evaluate();
 
@@ -44,10 +83,26 @@ namespace ScientificCalculator_ver.MVVM.Models
 
         private string SignConverter(string str)
         {
-            string num;
             str = str.Replace("÷", "/");
             str = str.Replace("×", "*");
             str = str.Replace("mod", "%");
+
+
+            if (str.Contains("log_base"))
+            {
+                string pattern = @"(\d+(\.\d+)?)\s+log_base\s+(\d+(\.\d+)?)"; 
+                string replacement = "log_base($1, $3)";
+
+                str = Regex.Replace(str, pattern, replacement);
+            }
+
+            if (str.Contains("yroot"))
+            {
+                string pattern = @"(\d+(\.\d+)?)\s+yroot\s+(\d+(\.\d+)?)";
+                string replacement = "yroot($1, $3)";
+
+                str = Regex.Replace(str, pattern, replacement);
+            }
 
             return str;
         }

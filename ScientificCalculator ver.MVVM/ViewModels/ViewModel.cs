@@ -19,6 +19,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         internal bool _isInt = true;
         internal bool _isBreaket = false;
+        internal bool _isExp = false;
         
 
         private bool _isToggled = false;
@@ -294,7 +295,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public ICommand BasketCommand { get; private set; }
         public ICommand AngleChangeCommand { get; private set; }
         public ICommand DelCommand { get; private set; }
-        public ICommand PiCommand { get; private set; }
+        public ICommand SurdCommand { get; private set; }
         public ICommand SpecialNumberCommand { get; private set; }
         public ICommand ToggleTrigonometryPopupCommand { get; }
         public ICommand ToggleFunctionPopupCommand { get; }
@@ -313,7 +314,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             ToggleTrigonometryPopupCommand = new RelayCommand(ToggleTrigonometryPopup);
             ToggleFunctionPopupCommand = new RelayCommand(ToggleFunctionPopup);
             DelCommand = new RelayCommand(DelNumberWrapper);
-            PiCommand = new RelayCommand(PiNumberWrapper);
+            SurdCommand = new RelayCommand<object>(SurdNumberWrapper);
             SpecialNumberCommand = new RelayCommand<object>(SpecialNumberWrapper);
             CECommand = new RelayCommand(CEWrapper);
             UpdateFontSizes();
@@ -405,9 +406,9 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             operatorButton.DelNumber(this);
         }
 
-        private void PiNumberWrapper()
+        private void SurdNumberWrapper(object parameter)
         {
-            operatorButton.PiNumber(this);
+            operatorButton.SurdNumber(parameter ,this);
         }
 
         private void SpecialNumberWrapper(object parameter)
@@ -483,7 +484,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         {
             string str = viewModel.inputNumber + Convert.ToString(parameter);
 
-            if (viewModel.inputNumber != "0" && viewModel._isInt == true)
+            if (viewModel.inputNumber != "0" && viewModel._isInt == true && !viewModel._isExp)
             {
                 viewModel._isInt = false;
                 viewModel.InputNumber = formatHelper.FormatNumberWithCommas(str);
@@ -638,46 +639,98 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             viewModel.InputNumber = calculration.DelNumber(viewModel.inputNumber);
         }//뒷글자 제거
 
-        internal void PiNumber(ViewModel viewModel)
+        internal void SurdNumber(object parameter, ViewModel viewModel)
         {
-            viewModel.InputNumber = calculration.MathResult("Pi");
+            viewModel.InputNumber = calculration.MathResult(Convert.ToString(parameter));
         }
 
         internal void SpecialNumber(object parameter ,ViewModel viewModel)
         {
             bool isOperator = false;
+            bool isExp = false;
 
-            if(Convert.ToString(parameter) == "Fact")
+            if (Convert.ToString(parameter) == "Fact")
             {
                 viewModel.CurrentExpression += " Fact(" + viewModel.inputNumber + ") ";
                 isOperator = true;
             }
-            else if(Convert.ToString(parameter) == "abs")
+            else if (Convert.ToString(parameter) == "abs")
             {
                 viewModel.CurrentExpression += " abs(" + viewModel.inputNumber + ") ";
                 isOperator = true;
             }
-            else if(Convert.ToString(parameter) == "mod" && !Convert.ToString(viewModel.currentExpression).Trim().EndsWith("d"))
+            else if (Convert.ToString(parameter) == "mod" && !Convert.ToString(viewModel.currentExpression).Trim().EndsWith("d"))
             {
                 viewModel.CurrentExpression += viewModel.inputNumber + " mod ";
                 viewModel.resultNumber = viewModel.inputNumber;
             }
-            else if(Convert.ToString(parameter) == "x²")
+            else if (Convert.ToString(parameter) == "x²")
             {
                 viewModel.CurrentExpression += " sqr(" + viewModel.inputNumber + ") ";
                 isOperator = true;
             }
-            else if(Convert.ToString(parameter) == "e^x")
+            else if (Convert.ToString(parameter) == "x³")
+            {
+                viewModel.CurrentExpression += " cube(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "e^x")
             {
                 if (!viewModel._isBreaket)
                     isOperator = true;
                 else
                     viewModel.resultNumber = viewModel.inputNumber;
                 viewModel.CurrentExpression += " Pow(" + Math.E + " , " + viewModel.inputNumber + ") ";
+            }
+            else if (Convert.ToString(parameter) == "10^x")
+            {
+                if (!viewModel._isBreaket)
+                    isOperator = true;
+                else
+                    viewModel.resultNumber = viewModel.inputNumber;
+                viewModel.CurrentExpression += " Pow(" + 10 + " , " + viewModel.inputNumber + ") ";
+            }
+            else if (Convert.ToString(parameter) == "log_y(x)")
+            {
+                viewModel.CurrentExpression += viewModel.inputNumber + " log_base ";
+                viewModel.resultNumber = viewModel.inputNumber;
+                viewModel._isInt = true;
+            }
+            else if (Convert.ToString(parameter) == "y√x")
+            {
+                viewModel.CurrentExpression += viewModel.inputNumber + " yroot ";
+                viewModel.resultNumber = viewModel.inputNumber;
+                viewModel._isInt = true;
+            }
+            else if (Convert.ToString(parameter) == "2√x")
+            {
+                viewModel.CurrentExpression += " root(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "3√x")
+            {
+                viewModel.CurrentExpression += " cuberoot(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "ln")
+            {
+                viewModel.CurrentExpression += " ln(" + viewModel.inputNumber + ") ";
+                isOperator = true;
+            }
+            else if (Convert.ToString(parameter) == "exp")
+            {
+
+                if(!isExp)
+                {
+                    viewModel.CurrentExpression += viewModel.inputNumber + " exp ";
+                    viewModel.resultNumber = viewModel.inputNumber;
+                    viewModel._isExp = true;
+                }
+                
                 
             }
-            
-            if(isOperator)
+
+            if (isOperator)
             {
                 viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(viewModel.currentExpression)));
                 viewModel.resultNumber = viewModel.inputNumber;

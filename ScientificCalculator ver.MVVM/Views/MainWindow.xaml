@@ -206,8 +206,8 @@
         </Popup>
 
         <ToggleButton Grid.Row="5" Grid.Column="0" Style="{StaticResource lightToggleButtonStyle}" IsChecked="{Binding IsToggled}" >2nd</ToggleButton>
-        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding PiCommand}">π</Button>
-        <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource NomalButtonStyle}">e</Button>
+        <Button Grid.Row="5" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding SurdCommand}" CommandParameter="Pi">π</Button>
+        <Button Grid.Row="5" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding SurdCommand}" CommandParameter="e">e</Button>
         <Button Grid.Row="5" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Height="39" Margin="2,2,2,0" VerticalAlignment="Top" Content="{Binding ButtonCE}" Command="{Binding CECommand}" />
         <Button Grid.Row="5" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding DelCommand}">⌫</Button>
 
@@ -217,25 +217,25 @@
         <Button Grid.Row="6" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">exp</Button>
         <Button Grid.Row="6" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="mod">mod</Button>
 
-        <Button Grid.Row="7" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonRoot}" /> 
+        <Button Grid.Row="7" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonRoot}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/> 
         <Button Grid.Row="7" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding BasketCommand}" CommandParameter="(">(</Button>
         <Button Grid.Row="7" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding BasketCommand}" CommandParameter=")">)</Button>
         <Button Grid.Row="7" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="Fact">n!</Button>
         <Button Grid.Row="7" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding CalculationCommand}" CommandParameter="÷">÷</Button>
 
-        <Button Grid.Row="8" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSquare}" />
+        <Button Grid.Row="8" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSquare}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
         <Button Grid.Row="8" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="7">7</Button>
         <Button Grid.Row="8" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="8">8</Button>
         <Button Grid.Row="8" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="9">9</Button>
         <Button Grid.Row="8" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding CalculationCommand}" CommandParameter="×">×</Button>
 
-        <Button Grid.Row="9" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSquare10}" />
+        <Button Grid.Row="9" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSquare10}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
         <Button Grid.Row="9" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="4">4</Button>
         <Button Grid.Row="9" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="5">5</Button>
         <Button Grid.Row="9" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="6">6</Button>
         <Button Grid.Row="9" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding CalculationCommand}" CommandParameter="-">-</Button>
 
-        <Button Grid.Row="10" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonLog}" />
+        <Button Grid.Row="10" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonLog}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
         <Button Grid.Row="10" Grid.Column="1" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="1">1</Button>
         <Button Grid.Row="10" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="2">2 </Button>
         <Button Grid.Row="10" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="3">3</Button>
