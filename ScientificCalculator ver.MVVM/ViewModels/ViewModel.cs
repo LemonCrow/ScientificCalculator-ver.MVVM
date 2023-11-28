@@ -676,7 +676,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
         internal void EqualsButton(ViewModel viewModel)
         {
-            if(viewModel.currentExpression != null && viewModel.currentExpression != "" && viewModel.currentExpression.Contains("="))
+            if(viewModel.currentExpression != null && viewModel.currentExpression != "" && !viewModel.currentExpression.Contains("="))
             {
                 viewModel.CurrentExpression += " " + viewModel.inputNumber;
                 viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
