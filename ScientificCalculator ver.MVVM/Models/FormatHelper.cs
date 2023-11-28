@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using ScientificCalculator_ver.MVVM.ViewModels;
 
 namespace ScientificCalculator_ver.MVVM.Models
@@ -94,12 +95,12 @@ namespace ScientificCalculator_ver.MVVM.Models
         internal string FormatNumberDelCommas(string str)
         {
             string[] arr = str.Split(" ");
-            if(arr.Length > 1)
+            for (int i = 0; i < arr.Length; i++)
             {
-                for (int i = 0; i < arr.Length; i++)
+                // arr[i]가 쉼표만 포함하고 있지 않다면 쉼표 제거
+                if (!arr[i].All(c => c == ','))
                 {
-                    if (arr[i] != ",")
-                        arr[i].Replace(",", "");
+                    arr[i] = arr[i].Replace(",", "");
                 }
             }
             str = string.Join(" ", arr);

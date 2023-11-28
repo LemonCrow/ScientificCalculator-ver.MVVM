@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         
 
         private bool _isToggled = false;
+        private bool _isFE = false;
         private bool _isTrigonometryPopupOpen;
         private bool _isFunctuonPopupOpen;
         private bool _is2nd = false;
@@ -78,6 +80,24 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 }
             }
         }
+        public bool IsFE
+        {
+            get => _isFE;
+            set
+            {
+                if (_isFE != value)
+                {
+                    _isFE = value;
+                    if (_isFE)
+                    {
+                        InputNumber = int.Parse(inputNumber).ToString("E2");
+                        resultNumber = inputNumber;
+                    }
+                    OnPropertyChanged(nameof(_isFE));
+                }
+            }
+        }
+
         public bool IsTrigonometryPopupOpen
         {
             get => _isTrigonometryPopupOpen;
@@ -363,7 +383,10 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         public string CurrentExpression
         {
             get { return currentExpression; }
-            set { SetProperty(ref currentExpression, value); }
+            set 
+            { 
+                SetProperty(ref currentExpression, value); 
+            }
         }
 
         private void AddNumberWrapper(object parameter)
@@ -541,7 +564,12 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 {
                     str = str.Replace(".", "");
                 }
-                viewModel.currentExpression += str;
+                if (viewModel.IsFE)
+                {
+                    viewModel.currentExpression += double.Parse(str).ToString("E2");
+                }
+                else
+                    viewModel.currentExpression += str;
                 if (!viewModel._isBreaket)
                 {
                     viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
@@ -625,7 +653,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                         viewModel.CurrentExpression += " ) ";
                     else
                         viewModel.CurrentExpression += viewModel.inputNumber + " ) ";
-                    viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult((viewModel.currentExpression))));
+                    viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas((viewModel.currentExpression)))));
                     viewModel.resultNumber = viewModel.inputNumber;
                 }
                 viewModel._isBreaket = false;
@@ -751,7 +779,7 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
 
             if (isOperator)
             {
-                viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(viewModel.currentExpression)));
+                viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
                 viewModel.resultNumber = viewModel.inputNumber;
                 viewModel.UpdateFontSizes();
                 viewModel._isInt = true;

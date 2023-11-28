@@ -126,7 +126,7 @@
         <TextBox IsReadOnly="True"  BorderBrush="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Height="80" VerticalContentAlignment ="Center" TextAlignment="Right" FontWeight="Bold"  Background="#f3f3f3" Text="{Binding InputNumber}" FontSize="{Binding InputNumberFontSize}"/>
 
         <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource InvisibleButtonStyle}" Command="{Binding AngleChangeCommand}" Content="{Binding AngleChange}"/>
-        <ToggleButton Grid.Row="2" Grid.Column="1" Style="{StaticResource HighlightToggleButtonStyle}">F-E</ToggleButton>
+        <ToggleButton Grid.Row="2" Grid.Column="1" Style="{StaticResource HighlightToggleButtonStyle}" IsChecked="{Binding IsFE}">F-E</ToggleButton>
 
         <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="5">
             <Grid.ColumnDefinitions>
