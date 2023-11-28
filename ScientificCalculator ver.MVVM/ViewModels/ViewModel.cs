@@ -726,8 +726,12 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                     viewModel.resultNumber = viewModel.inputNumber;
                     viewModel._isExp = true;
                 }
-                
-                
+            }
+            else if (Convert.ToString(parameter) == " x^y")
+            {
+                viewModel.CurrentExpression += viewModel.inputNumber + " pow ";
+                viewModel.resultNumber = viewModel.inputNumber;
+                viewModel._isInt = true;
             }
 
             if (isOperator)

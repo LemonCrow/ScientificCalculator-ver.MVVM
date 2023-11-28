@@ -71,6 +71,12 @@ namespace ScientificCalculator_ver.MVVM.Models
                     double y = Convert.ToDouble(args.Parameters[1].Evaluate());
                     args.Result = x * Math.Pow(10, y);
                 }
+                if (name == "power")
+                {
+                    double x = Convert.ToDouble(args.Parameters[0].Evaluate());
+                    double y = Convert.ToDouble(args.Parameters[1].Evaluate());
+                    args.Result = Math.Pow(x, y);
+                }
             };
             expr.Parameters["Pi"] = Math.PI;
             expr.Parameters["e"] = Math.E;
@@ -108,6 +114,13 @@ namespace ScientificCalculator_ver.MVVM.Models
             {
                 string pattern = @"(\d+(\.\d+)?)\s+exp\s+(\d+(\.\d+)?)";
                 string replacement = "exp($1, $3)";
+
+                str = Regex.Replace(str, pattern, replacement);
+            }
+            if (str.Contains("pow"))
+            {
+                string pattern = @"(\d+(\.\d+)?)\s+pow\s+(\d+(\.\d+)?)";
+                string replacement = "power($1, $3)";
 
                 str = Regex.Replace(str, pattern, replacement);
             }
