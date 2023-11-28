@@ -214,7 +214,7 @@
         <Button Grid.Row="6" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonSqr}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
         <Button Grid.Row="6" Grid.Column="1" Style="{StaticResource NomalButtonStyle}">1/x</Button>
         <Button Grid.Row="6" Grid.Column="2" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="abs">|x|</Button>
-        <Button Grid.Row="6" Grid.Column="3" Style="{StaticResource NomalButtonStyle}">exp</Button>
+        <Button Grid.Row="6" Grid.Column="3" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}" >exp</Button>
         <Button Grid.Row="6" Grid.Column="4" Style="{StaticResource NomalButtonStyle}" Command="{Binding SpecialNumberCommand}" CommandParameter="mod">mod</Button>
 
         <Button Grid.Row="7" Grid.Column="0" Style="{StaticResource NomalButtonStyle}" Content="{Binding ButtonRoot}" Command="{Binding SpecialNumberCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/> 

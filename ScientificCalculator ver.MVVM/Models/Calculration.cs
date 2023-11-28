@@ -104,6 +104,14 @@ namespace ScientificCalculator_ver.MVVM.Models
                 str = Regex.Replace(str, pattern, replacement);
             }
 
+            if (str.Contains("exp"))
+            {
+                string pattern = @"(\d+(\.\d+)?)\s+exp\s+(\d+(\.\d+)?)";
+                string replacement = "exp($1, $3)";
+
+                str = Regex.Replace(str, pattern, replacement);
+            }
+
             return str;
         }
 
