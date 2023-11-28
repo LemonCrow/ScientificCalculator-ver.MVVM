@@ -743,6 +743,11 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
                 viewModel.CurrentExpression += " 1 / (" + viewModel.inputNumber + ") ";
                 isOperator = true;
             }
+            else if (Convert.ToString(parameter) == "2^x")
+            {
+                viewModel.CurrentExpression += " 2 pow " + viewModel.inputNumber + " ";
+                isOperator = true;
+            }
 
             if (isOperator)
             {
