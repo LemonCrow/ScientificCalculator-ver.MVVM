@@ -122,7 +122,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox IsReadOnly="True" Foreground="Gray" Background="#f3f3f3" BorderBrush="Transparent" Grid.Column="0" Margin="5,0,5,0" Height="40" VerticalAlignment="Center" TextAlignment="Right" FontWeight="Bold"  Grid.ColumnSpan="5" Text="{Binding CurrentExpression}" FontSize="{Binding CurrentExpressionFontSize}"/>
+        <TextBox IsReadOnly="True" Foreground="Gray" Background="#f3f3f3" BorderBrush="Transparent" Grid.Column="0" Margin="5,0,5,0" Height="40" VerticalAlignment="Center" TextAlignment="Right" FontWeight="Bold"  Grid.ColumnSpan="5" Text="{Binding CurrentExpression}" FontSize="{Binding CurrentExpressionFontSize}" TextWrapping="Wrap" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" />
         <TextBox IsReadOnly="True"  BorderBrush="Transparent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Margin="5" Height="80" VerticalContentAlignment ="Center" TextAlignment="Right" FontWeight="Bold"  Background="#f3f3f3" Text="{Binding InputNumber}" FontSize="{Binding InputNumberFontSize}"/>
 
         <Button Grid.Row="2" Grid.Column="0" Style="{StaticResource InvisibleButtonStyle}" Command="{Binding AngleChangeCommand}" Content="{Binding AngleChange}"/>

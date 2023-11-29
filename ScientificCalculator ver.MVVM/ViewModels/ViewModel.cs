@@ -712,6 +712,9 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
             if (viewModel.currentExpression.Length < 10) return 20;
             if (viewModel.currentExpression.Length < 20) return 18;
             if (viewModel.currentExpression.Length < 30) return 15;
+            if (viewModel.currentExpression.Length < 40) return 12;
+            if (viewModel.currentExpression.Length < 50) return 9;
+            if (viewModel.currentExpression.Length < 60) return 5;
 
             return 12;
         } // 텍스트 사이즈 자동조절
