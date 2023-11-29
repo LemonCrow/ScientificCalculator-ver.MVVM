@@ -678,9 +678,10 @@ namespace ScientificCalculator_ver.MVVM.ViewModels
         {
             if(viewModel.currentExpression != null && viewModel.currentExpression != "" && !viewModel.currentExpression.Contains("="))
             {
-                viewModel.CurrentExpression += " " + viewModel.inputNumber;
+                if(!viewModel.currentExpression.Trim().EndsWith(")"))
+                    viewModel.CurrentExpression += " " + viewModel.inputNumber;
                 viewModel.InputNumber = Convert.ToString(formatHelper.FormatNumberWithCommas(calculration.MathResult(formatHelper.FormatNumberDelCommas(viewModel.currentExpression))));
-                viewModel.CurrentExpression += " = " + viewModel.inputNumber;
+                viewModel.CurrentExpression += " = ";
                 viewModel.resultNumber = viewModel.inputNumber;
                 viewModel.UpdateFontSizes();
                 viewModel._isInt = true;

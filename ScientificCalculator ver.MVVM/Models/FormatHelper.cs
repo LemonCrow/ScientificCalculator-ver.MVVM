@@ -9,86 +9,90 @@ namespace ScientificCalculator_ver.MVVM.Models
         internal string FormatNumberWithCommas(string str)
         {
             string numberString = FormatNumberDelCommas(str);
-            bool isMin = false;
-
-            if (numberString.StartsWith("-"))
+            if(double.TryParse(numberString, out double test))
             {
-                numberString = numberString.Replace("-", "");
-                isMin = true;
-            }
+                bool isMin = false;
 
-            if (!str.Contains("."))
-            {
-                int length = numberString.Length;
-                int commaCount = (length - 1) / 3;
-                StringBuilder formatted = new StringBuilder(length + commaCount);
-
-                int commaPosition = 3 - (length % 3);
-                if (commaPosition == 3)
+                if (numberString.StartsWith("-"))
                 {
-                    commaPosition = 0;
+                    numberString = numberString.Replace("-", "");
+                    isMin = true;
                 }
 
-                for (int i = 0; i < length; i++)
+                if (!str.Contains("."))
                 {
-                    if (i != 0 && commaPosition == 0)
+                    int length = numberString.Length;
+                    int commaCount = (length - 1) / 3;
+                    StringBuilder formatted = new StringBuilder(length + commaCount);
+
+                    int commaPosition = 3 - (length % 3);
+                    if (commaPosition == 3)
                     {
-                        formatted.Append(",");
+                        commaPosition = 0;
                     }
 
-                    formatted.Append(numberString[i]);
-
-                    commaPosition = (commaPosition + 1) % 3;
-                }
-
-                string formattedString = formatted.ToString();
-
-                if (isMin)
-                {
-                    formattedString = "-" + formattedString;
-                }
-
-                return formattedString;
-
-            }
-            else
-            {
-                string[] arr = numberString.Split('.');
-                
-
-                int length = arr[0].Length;
-                int commaCount = (length - 1) / 3;
-                StringBuilder formatted = new StringBuilder(length + commaCount);
-
-                int commaPosition = 3 - (length % 3);
-                if (commaPosition == 3)
-                {
-                    commaPosition = 0;
-                }
-
-                for (int i = 0; i < length; i++)
-                {
-                    if (i != 0 && commaPosition == 0)
+                    for (int i = 0; i < length; i++)
                     {
-                        formatted.Append(",");
+                        if (i != 0 && commaPosition == 0)
+                        {
+                            formatted.Append(",");
+                        }
+
+                        formatted.Append(numberString[i]);
+
+                        commaPosition = (commaPosition + 1) % 3;
                     }
 
-                    formatted.Append(numberString[i]);
+                    string formattedString = formatted.ToString();
 
-                    commaPosition = (commaPosition + 1) % 3;
+                    if (isMin)
+                    {
+                        formattedString = "-" + formattedString;
+                    }
+
+                    return formattedString;
+
                 }
-
-                string formattedString = formatted.ToString();
-
-                formattedString = formattedString + "." + arr[1];
-
-                if (isMin)
+                else
                 {
-                    formattedString = "-" + formattedString;
-                }
+                    string[] arr = numberString.Split('.');
 
-                return formattedString;
+
+                    int length = arr[0].Length;
+                    int commaCount = (length - 1) / 3;
+                    StringBuilder formatted = new StringBuilder(length + commaCount);
+
+                    int commaPosition = 3 - (length % 3);
+                    if (commaPosition == 3)
+                    {
+                        commaPosition = 0;
+                    }
+
+                    for (int i = 0; i < length; i++)
+                    {
+                        if (i != 0 && commaPosition == 0)
+                        {
+                            formatted.Append(",");
+                        }
+
+                        formatted.Append(numberString[i]);
+
+                        commaPosition = (commaPosition + 1) % 3;
+                    }
+
+                    string formattedString = formatted.ToString();
+
+                    formattedString = formattedString + "." + arr[1];
+
+                    if (isMin)
+                    {
+                        formattedString = "-" + formattedString;
+                    }
+
+                    return formattedString;
+                }
             }
+            return numberString;
 
         }//콤마추가
 
@@ -116,7 +120,7 @@ namespace ScientificCalculator_ver.MVVM.Models
             str = str.Replace(".", "");
             
 
-            if(str.Length >= 32)
+            if(str.Length >= 20)
             {
                 return false;
             }

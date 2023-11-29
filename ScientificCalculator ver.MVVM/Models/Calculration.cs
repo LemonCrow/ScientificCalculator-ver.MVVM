@@ -205,10 +205,26 @@ namespace ScientificCalculator_ver.MVVM.Models
             };
             expr.Parameters["Pi"] = Math.PI;
             expr.Parameters["e"] = Math.E;
-
-            object result = expr.Evaluate();
-
-            return Convert.ToString(result);
+            object result;
+            try
+            {
+                result = expr.Evaluate();
+                return Convert.ToString(result);
+            }
+            catch (EvaluationException ex)
+            {
+                return "error: 계산 중 오류가 발생했습니다";
+            }
+            catch (OverflowException)
+            {
+                return "error: 계산 결과가 너무 크거나 작습니다.";
+                // 계산 결과가 너무 크거나 작은 경우의 처리 로직
+            }
+            catch (Exception ex)
+            {
+                return "error: 알 수 없는 오류가 발생했습니다";
+                // 다른 유형의 예외에 대한 처리 로직
+            }
 
         }//연산
 
